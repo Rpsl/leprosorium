@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>Leprosorium++ Options Page</title>
+    <script type="text/javascript" src="kango-ui/kango_api.js"></script>
+    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="options.js"></script>
+    <script type="text/javascript" src="options_page.js"></script>
+    <style type="text/css">
+        body {
+            font-family: verdana,sans-serif;
+            font-size: 0.8em;
+            color: #3d3d3d;
+            margin: 0;
+        }
+
+        #content {
+            width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="content">
+    <h1>Leprosorium++</h1>
+    <fieldset>
+        <legend>Кнопка</legend>
+        <p>При клике на кнопку:</p>
+        <select name="on_button_click" id="on_button_click">
+            <option value="1" id="on_button_click_popup">Показывать popup</option>
+            <option value="0" id="on_button_click_site" disabled>Открывать Лепрозорий</option>
+        </select>
+
+        <p>Показывать на кнопке:</p>
+
+        <select name="show_on_badge" id="show_on_bage">
+            <option value="0">Ничего</option>
+            <option value="1">Карму</option>
+            <option value="2">Рейтинг</option>
+            <option value="3">Количество новых постов в моих вещах</option>
+            <option value="4">Количество новых комментариев в моих вещах</option>
+            <option value="5">Количество новых инбоксов</option>
+            <option value="6">Количество новых комментариев в инбоксах</option>
+        </select>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>Дополнительные расширения</legend>
+        <div>
+            <p>Раскрашивать рейтинг комментариев (by ???)<input class="plugin" type="checkbox" id="commentsratings" name="commentsratings" value="1"/></p>
+            <p>YouTube видео вместо ссылок (by ???)<input class="plugin" type="checkbox" id="youtubelinks" name="youtubelinks" value="1"/></p>
+            <p>TotalComments (by <a href="http://leprosorium.ru/users/pomapoma" target="_blank">pomapoma</a>) <input class="plugin" type="checkbox" id="totalcomments" name="totalcomments" value="1"/></p>
+            <p>Nice Comments Navigation (by ??) <input class="plugin" type="checkbox" id="nicecomments" name="nicecomments" value="1"/></p>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <p>На создание сподвигло обноление Лепрозория и старый плагин <a href="https://chrome.google.com/webstore/detail/lepra%20/jdikpbomhhcjdempjknpeajehhkgojpf" target="_blank">Lepra+</a>.</p>
+        <p>Юзерскрипты для панели собраны в интернете, авторы указаны по возможности.</p>
+        <p>Отдельный плюс-плюс: <a href="http://leprosorium.ru/users/rpsl" target="_blank">Rpsl</a>, <a href="http://leprosorium.ru/users/KAdot" target="_blank">KAdot</a></p>
+        <p>%сюда заебенить ссылку на github%</p>
+        <p><a href="http://leprosorium.ru/my/inbox/write/Rpsl" target="_blank">Написать инбокс</a>.</p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Changelog:</legend>
+        <ul>
+            <li>v0.2</li>
+            <ul>
+                <li>Добавлен Nice Comments Navigations</li>
+                <li>Исправления в производительности TotalComments</li>
+            </ul>
+
+            <li>v0.1</li>
+            <ul>
+                <li>Первый тестовый релиз</li>
+            </ul>
+        </ul>
+    </fieldset>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+    "content_scripts": [
+        "scripts/comments_ratings_colors.js",
+        "scripts/youtube_link_convert.js",
+        "scripts/lepro_total_comments.js",
+        "scripts/nice_comment_navigation.js"
+    ],
+    "description": "Leprosorium++",
+    "creator": "Rpsl",
+    "background_scripts": [
+        "main.js"
+    ], 
+    "homepage_url": "http://leprosorium.ru/",
+    "version": "0.2",
+    "browser_button": {
+        "caption": "Leprosorium",
+        "icon": "icons/button.png", 
+        "tooltipText": "Leprosorium++",
+        "popup": {
+            "url": "popup.html",
+            "width": 100,
+            "height": 70
+        }
+
+    },
+    "options_page": "options.html",
+    "name": "Leprosorium++"
+}
