@@ -90,6 +90,19 @@ Lepro.prototype = {
                 self._setUnreadCount(data);
             }
         });
+
+        kango.invokeAsync('kango.storage.getItem', 'firstview', function(value) {
+
+            if( value !== 1 ){
+                kango.storage.setItem('firstview', 1);
+
+                kango.ui.optionsPage.open();
+            }
+
+        });
+
+
+
     }
 
 };
