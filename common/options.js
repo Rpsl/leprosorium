@@ -81,3 +81,4 @@ var Options = {
         kango.storage.setItem('plugins', settings );
     }
 };
+

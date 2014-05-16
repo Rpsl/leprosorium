@@ -10,8 +10,6 @@ function main() {
 
     function drawBorder(element) {
 
-        console.log( element );
-
         $("#" + element.id + " .b-comment_outline").addClass("comm_border");
     }
 
@@ -114,70 +112,58 @@ function main() {
     }
 
 
-    var newComms = $("#js-commentsHolder .new").get();
-    var index = 0;
+    if( location.pathname.search('comments') !== -1 ) {
 
-    if (newComms.length > 0) {
+        var newComms = $("#js-commentsHolder .new").get();
+        var index = 0;
 
-        var options = { navigateWith: "arrows",
-            drawBorder: true,
-            highliteComment: true,
-            highliteColor: "#f4fbac",
-            showPrevComment: true,
-            smoothScroll: true
-        };
+        if (newComms.length > 0) {
 
-        var style = document.createElement("style");
-        style.type = "text/css";
-        style.innerHTML = "\
-	.lc-next-block { \
-        position: fixed; \
-        top: 400px; \
-        right: 0px; \
-        z-index: 100; \
-      } \
-      .lc-next-block span { \
-        display: block; \
-        width: 28px; \
-        height: 28px; \
-        color: #000; \
-        background-color: #fff; \
-        border: 1px solid #000; \
-        padding: 0pt; \
-        margin: 0pt; \
-        margin-bottom: 1px; \
-        cursor: pointer; \
-        opacity: 0.25; \
-        height: 100%; \
-        padding: 6px 0;\
-        text-align: center;\
-      } \
-      .lc-next-block span:hover { \
-        opacity: 1; \
-      } \
-      .comm_border { \
-        border: 1px solid black !important; \
-        } \
-	  ";
+            var options = {
+                navigateWith: "arrows",
+                drawBorder: false,
+                highliteComment: false,
+                highliteColor: "#f4fbac",
+                showPrevComment: true,
+                smoothScroll: false
+            };
 
-        document.body.appendChild(style);
 
-        if (options.navigateWith === "arrows") {
-            $("<div />", {class: "lc-next-block"})
-                .append($("<span />", { text: "↑", click: ScrollToPrevNewComment }))
-                .append($("<span />", { text: "↓", click: ScrollToNextNewComment }))
-                .appendTo("body");
-        } else {
-            $("<div />", { id: "lc-next-block" })
-                .append($("<button />", { id: "current_comment", text: "1", click: ScrollToPrevNewComment}))
-                .append($("<span />", { text: " / "}))
-                .append($("<button />", { text: newComms.length, click: ScrollToNextNewComment}))
-                .appendTo("body");
+            kango.invokeAsync('kango.storage.getItem', 'nice_comments', function(value) {
+
+                $.each(value, function(k,v){
+                   if( v.value == "on" ) {
+                        options[ v.name ] = true;
+                   }
+                });
+
+                var style = document.createElement("style");
+                style.type = "text/css";
+                style.innerHTML = ".lc-next-block {  position: fixed;  top: 400px;  right: 0px;  z-index: 100;  }  .lc-next-block span {  display: block;  width: 28px;  height: 28px;  color: #000;  background-color: #fff;  border: 1px solid #000;  padding: 0pt;  margin: 0pt;  margin-bottom: 1px;  cursor: pointer;  opacity: 0.25;  height: 100%;  padding: 6px 0; text-align: center; }  .lc-next-block span:hover {  opacity: 1;  }  .comm_border {  border: 1px solid black !important;  }  ";
+
+                document.body.appendChild(style);
+
+                if (options.navigateWith === "arrows") {
+                    $("<div />", {class: "lc-next-block"})
+                        .append($("<span />", { text: "↑", click: ScrollToPrevNewComment }))
+                        .append($("<span />", { text: "↓", click: ScrollToNextNewComment }))
+                        .appendTo("body");
+                } else {
+                    $("<div />", { id: "lc-next-block" })
+                        .append($("<button />", { id: "current_comment", text: "1", click: ScrollToPrevNewComment}))
+                        .append($("<span />", { text: " / "}))
+                        .append($("<button />", { text: newComms.length, click: ScrollToNextNewComment}))
+                        .appendTo("body");
+                }
+
+                document.addEventListener('keydown', keyDownHandler, false);
+            });
+
+
         }
-
-        document.addEventListener('keydown', keyDownHandler, false);
     }
 }
+
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
 
