@@ -4,7 +4,7 @@ opera/
 ie/
 firefox/
 chrome/
-__COMPILED_EXTENSIONS/chrome/
-__COMPILED_EXTENSIONS/firefox/
-__COMPILED_EXTENSIONS/safari/
+__COMPILED_EXTENSIONS/chrome
+__COMPILED_EXTENSIONS/firefox
+__COMPILED_EXTENSIONS/safari
 __COMPILED_EXTENSIONS/*.zip
