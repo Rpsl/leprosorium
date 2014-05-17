@@ -112,7 +112,7 @@ function main() {
     }
 
 
-    if( location.pathname.search('comments') !== -1 ) {
+    if( location.pathname.search('comments') !== -1 || location.pathname.search('inbox') !== -1 ) {
 
         var newComms = $("#js-commentsHolder .new").get();
         var index = 0;
