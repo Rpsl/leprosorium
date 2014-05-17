@@ -14,19 +14,25 @@ function main(){
         var textarea = false;
         var toolbar = false;
         var asylum = false;
+        var inbox = false;
 
 
-        if (window.location.href.indexOf("comments") !== - 1
-            || window.location.href.indexOf("inbox") !== - 1
-            || window.location.href.indexOf("write") != - 1)
+        if (window.location.href.indexOf("comments") !== -1 )
         {
             textarea = jQuery('textarea.i-form_text_input');
+
         }
-        else if (window.location.href.indexOf("asylum") != - 1)
+        else if( window.location.href.indexOf("write") !== -1 )
+        {
+            textarea = jQuery('textarea.i-form_textarea');
+            inbox = true;
+        }
+        else if (window.location.href.indexOf("asylum") != -1)
         {
             textarea = jQuery('#js-new_post_body');
             asylum = true;
         }
+
 
         if( !textarea )
         {
@@ -41,6 +47,10 @@ function main(){
             if( asylum )
             {
                 toolbar = jQuery(textarea).parent().parent().parent().find('#js-new_post_body_wysiwyg')
+            }
+            else if ( inbox )
+            {
+                toolbar = jQuery(textarea).parent().find('#js-new_inbox_wysiwyg')
             }
             else
             {
@@ -64,7 +74,18 @@ function main(){
                     preview.innerHTML = '<td colspan="3"><div style="margin-top:20px;" class="lp_preview"></div></td>';
                     //                toolbar.parentNode.parentNode.insertBefore(preview, toolbar.parentNode);
                     jQuery(toolbar).parent().parent().append(preview);
-                } else {
+                }
+                else if ( inbox )
+                {
+
+                    preview = document.createElement('div');
+                    preview.className = "lp_preview";
+                    preview.setAttribute('style', "margin-top: 20px;");
+
+                    jQuery(toolbar).parent().after(preview);
+                }
+                else
+                {
                     preview = document.createElement('div');
                     preview.className = "lp_preview";
                     preview.setAttribute('style', "margin-top: 20px;");
