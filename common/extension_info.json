@@ -4,7 +4,8 @@
         "scripts/youtube_link_convert.js",
         "scripts/lepro_total_comments.js",
         "scripts/nice_comment_navigation.js",
-        "scripts/remove_comments_borders.js"
+        "scripts/remove_comments_borders.js",
+        "scripts/preview.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",
