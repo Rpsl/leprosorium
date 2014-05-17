@@ -38,7 +38,8 @@ function main()
     // If DOM changed
     document.addEventListener("DOMNodeInserted", handleComment, false);
     function handleComment(e) {
-        if (e.target.className.indexOf("comment_inner") > -1) {
+
+        if ( e.target.className !== undefined && e.target.className.indexOf("comment_inner") > -1) {
             appendUserNumbers(e.target.getElementsByClassName('ddi'));
         }
     }
