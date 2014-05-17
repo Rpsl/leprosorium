@@ -53,9 +53,6 @@ Lepro.prototype = {
 
             }
 
-            kango.console.log( string );
-            kango.console.log( count );
-
             var split = string + ': ' + count;
 
             if( badge = 0 )
@@ -90,6 +87,19 @@ Lepro.prototype = {
                 self._setUnreadCount(data);
             }
         });
+
+        kango.invokeAsync('kango.storage.getItem', 'firstview', function(value) {
+
+            if( value !== 1 ){
+                kango.storage.setItem('firstview', 1);
+
+                kango.ui.optionsPage.open();
+            }
+
+        });
+
+
+
     }
 
 };

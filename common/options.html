@@ -25,6 +25,13 @@
             margin-bottom: 20px;
         }
 
+        .settings {
+            text-decoration: none;
+            border-bottom: 1px dashed;
+        }
+        .settings-block {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -58,7 +65,15 @@
             <p>Раскрашивать рейтинг комментариев (by ???)<input class="plugin" type="checkbox" id="commentsratings" name="commentsratings" value="1"/></p>
             <p>YouTube видео вместо ссылок (by ???)<input class="plugin" type="checkbox" id="youtubelinks" name="youtubelinks" value="1"/></p>
             <p>TotalComments (by <a href="http://leprosorium.ru/users/pomapoma" target="_blank">pomapoma</a>) <input class="plugin" type="checkbox" id="totalcomments" name="totalcomments" value="1"/></p>
-            <p>Nice Comments Navigation (by ??) <input class="plugin" type="checkbox" id="nicecomments" name="nicecomments" value="1"/></p>
+            <p>
+                <a href="#" data-settings-block="nice_comments" class="settings">Nice Comments Navigation (by ??)</a> <input class="plugin" type="checkbox" id="nicecomments" name="nicecomments" value="1"/>
+                <div class="settings-block" id="nice_comments">
+                    <div><input class="plugin" type="checkbox" name="drawBorder"/> Рисовать рамку вокрут текущего комментария</div>
+                    <div><input class="plugin" type="checkbox" name="highliteComment"/> Подсвечивать текущий комментарий</div>
+                    <div><input class="plugin" type="checkbox" name="smoothScroll"/> Плавный скролл</div>
+                </div>
+            </p>
+            <!--<p>Постоянные ссылки на подлепры в навигационной панели	 (by ??) <input class="plugin" type="checkbox" id="sublepras" name="sublepras" value="1"/></p>-->
         </div>
     </fieldset>
 
@@ -66,13 +81,19 @@
         <p>На создание сподвигло обноление Лепрозория и старый плагин <a href="https://chrome.google.com/webstore/detail/lepra%20/jdikpbomhhcjdempjknpeajehhkgojpf" target="_blank">Lepra+</a>.</p>
         <p>Юзерскрипты для панели собраны в интернете, авторы указаны по возможности.</p>
         <p>Отдельный плюс-плюс: <a href="http://leprosorium.ru/users/rpsl" target="_blank">Rpsl</a>, <a href="http://leprosorium.ru/users/KAdot" target="_blank">KAdot</a></p>
-        <p>%сюда заебенить ссылку на github%</p>
-        <p><a href="http://leprosorium.ru/my/inbox/write/Rpsl" target="_blank">Написать инбокс</a>.</p>
+        <p><a href="https://github.com/Rpsl/leprosorium" target="_blank">https://github.com/Rpsl/leprosorium</a></p>
+        <p><a href="http://leprosorium.ru/my/inbox/write/Rpsl" target="_blank">Написать инбокс</a></p>
     </fieldset>
 
     <fieldset>
         <legend>Changelog:</legend>
         <ul>
+            <li>v0.3</li>
+            <ul>
+                <li>При установке плагина открывается страница настроек</li>
+                <li>Для Nice Comments Navigation добавлены настройки</li>
+                <li>Общие улучшения</li>
+            </ul>
             <li>v0.2</li>
             <ul>
                 <li>Добавлен Nice Comments Navigations</li>

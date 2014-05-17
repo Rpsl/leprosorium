@@ -32,11 +32,57 @@ KangoAPI.onReady(function() {
         } else {
             jQuery('#' + key).removeAttr('checked' );
         }
-
-
-
-
     };
 
-});
+    jQuery('.settings-block input[type="checkbox"]').on('change', function(e){
 
+        e.preventDefault();
+
+        var id = $(this).closest('.settings-block').attr('id');
+
+        var value = $('#' + id +' input').serializeArray();
+
+        if( value !== '[]' ) {
+            kango.invokeAsync('kango.storage.setItem', id, value );
+        } else {
+            kango.invokeAsync('kango.storage.removeItem', id, value );
+        }
+
+
+
+    });
+
+    jQuery('.settings-block').each(function(k,v){
+
+        var id = $(this).attr('id');
+
+        kango.invokeAsync('kango.storage.getItem', id,  function(value){
+
+            if( value !== undefined && value !== null ) {
+                $(value).each(function(k,v){
+
+                    var $el = $('[name="'+ v.name+'"]'),
+                        type = $el.attr('type');
+
+                    switch(type){
+                        case 'checkbox':
+                            $el.attr('checked', 'checked');
+                            break;
+                        case 'radio':
+                            $el.filter('[value="'+v.value+'"]').attr('checked', 'checked');
+                            break;
+                        default:
+                            $el.val(v.value);
+                    }
+
+                });
+            }
+
+        });
+    });
+
+    jQuery('a.settings').on('click', function(){
+       $('#' + $(this).data('settings-block')).toggle();
+    });
+
+});

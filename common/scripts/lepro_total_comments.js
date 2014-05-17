@@ -420,27 +420,32 @@ function main() {
     //
 
     var work = function () {
-        createPanel();
-        appendAuthorsSearchLink();
 
-        if (location.hash.search('#ltc-') !== -1) {
-            var mode = location.hash.replace('#ltc-', '');
+        if( location.pathname.search('comments') !== -1 ) {
 
-            if (mode.search('author-') === 0) {
-                document.getElementById('ltc-author-name').value = mode.replace('author-', '');
-                setViewMode('author');
+            createPanel();
+            appendAuthorsSearchLink();
+
+            if (location.hash.search('#ltc-') !== -1) {
+                var mode = location.hash.replace('#ltc-', '');
+
+                if (mode.search('author-') === 0) {
+                    document.getElementById('ltc-author-name').value = mode.replace('author-', '');
+                    setViewMode('author');
+                }
+                else {
+                    setViewMode(mode);
+                }
             }
             else {
-                setViewMode(mode);
+                setViewMode(defaultMode);
             }
-        }
-        else {
-            setViewMode(defaultMode);
         }
     };
 
     work();
 };
+
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
 
     var name = 'totalcomments';
