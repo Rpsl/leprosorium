@@ -3,6 +3,9 @@ Leprosorium
 
 Leprosorium++ extension for Google Chrome and Mozilla Firefox
 
+![show m later](https://raw.github.com/Rpsl/leprosorium/master/lepro++.png)
+
+
 Установка
 ===========
 * [Google Chrome](https://chrome.google.com/webstore/detail/leprosorium%20%20/cmoaeoopgbabkeljpdoocejcjnednikb?utm_source=chrome-ntp-icon) ставьте расшриение из магазина.
