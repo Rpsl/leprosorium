@@ -5,7 +5,8 @@
         "scripts/lepro_total_comments.js",
         "scripts/nice_comment_navigation.js",
         "scripts/remove_comments_borders.js",
-        "scripts/preview.js"
+        "scripts/preview.js",
+        "scripts/user_numbers.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",
