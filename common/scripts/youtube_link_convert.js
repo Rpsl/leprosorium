@@ -4,10 +4,12 @@
 // @author		MJ
 // @include		http://*.leprosorium.ru/*
 // @include		http://leprosorium.ru/*
+// @require     jquery-1.9.1.min.js
 // ==/UserScript==
 
 function handle() {
     var anchors = document.getElementsByTagName('a');
+
     for(var i = 0, a; a = anchors[i]; ++i){
         if(a.href.search(/youtube\.com\/watch\?v=/) == -1 || a.parentNode.className == "Quote") continue;
 
@@ -39,7 +41,17 @@ function handle() {
 
 function main(){
     // If DOM changed
-    document.addEventListener("DOMNodeInserted", handle, false);
+    document.addEventListener("DOMNodeInserted", handleVideo, false);
+
+    function handleVideo(event) {
+
+        var check = jQuery(event.target).find('a');
+
+        if( check.length > 0 )
+        {
+            handle();
+        }
+    }
 
     handle();
 }
