@@ -3,6 +3,7 @@
 // @namespace	leprosorium++nicecomments
 // @include		http://*.leprosorium.ru/*
 // @include		http://leprosorium.ru/*
+// @require        jquery-1.9.1.min.js
 // ==/UserScript==
 
 function main() {
@@ -112,10 +113,14 @@ function main() {
     }
 
 
+
     if( location.pathname.search('comments') !== -1 || location.pathname.search('inbox') !== -1 ) {
 
         var newComms = $("#js-commentsHolder .new").get();
         var index = 0;
+
+
+        console.log(newComms.length);
 
         if (newComms.length > 0) {
 
