@@ -61,8 +61,6 @@ function main(){
 
             last_pos = pos;
 
-
-
         });
     }
 }
