@@ -47,13 +47,21 @@ function main(){
 
         jQuery(wrapper).append(scroll);
 
+        var last_pos = jQuery(document).scrollTop();
 
         jQuery(document).on('scroll', function () {
-            if (jQuery(document).scrollTop() > 800) {
-                jQuery(scroll).show();
-            } else {
+
+            var pos = jQuery(document).scrollTop()
+
+            if ( last_pos > 800 && pos < 800 ) {
                 jQuery(scroll).hide();
+            } else if ( last_pos < 800 && pos > 800 ){
+                jQuery(scroll).show();
             }
+
+            last_pos = pos;
+
+
 
         });
     }
