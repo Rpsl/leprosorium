@@ -28,5 +28,9 @@
 
     },
     "options_page": "options.html",
-    "name": "Leprosorium++"
+    "name": "Leprosorium++",
+    "permissions": {
+        "content_scripts": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*"],
+        "xhr": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*"]
+    }
 }
