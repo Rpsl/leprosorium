@@ -1,11 +1,13 @@
 {
     "content_scripts": [
-        "scripts/preview.js",
-        "scripts/nice_comment_navigation.js",
         "scripts/comments_ratings_colors.js",
-        "scripts/remove_comments_borders.js",
         "scripts/lepro_scroll.js",
-        "scripts/user_numbers.js"
+
+        "scripts/nice_comment_navigation.js",
+        "scripts/preview.js",
+        "scripts/remove_comments_borders.js",
+        "scripts/user_numbers.js",
+        "scripts/youtube_link_convert.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",
