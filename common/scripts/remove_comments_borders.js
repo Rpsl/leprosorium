@@ -4,11 +4,16 @@
 // @author	    Rpsl
 // @include		http://*.leprosorium.ru/*
 // @include		http://leprosorium.ru/*
-// @require     jquery-1.9.1.min.js
 // ==/UserScript==
 
 function main() {
-    jQuery('.b-comment_outline').css('border-style', 'none');
+
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = '.b-comment_outline { border: none; }';
+
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(style);
 }
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
