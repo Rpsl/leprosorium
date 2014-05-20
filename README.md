@@ -27,7 +27,7 @@ Leprosorium++ extension for Google Chrome and Mozilla Firefox
 // @author		%username%
 // @include		http://*.leprosorium.ru/*
 // @include		http://leprosorium.ru/*
-// @require     jquery-1.9.1.min.js // если требуется
+// @require     jquery-1.11.1.min.js // если требуется
 // ==/UserScript==
 
 function main() {
