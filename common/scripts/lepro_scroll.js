@@ -3,65 +3,55 @@
 // @namespace	leprosorium++scrolltotopv2
 // @include		http://*.leprosorium.ru/*
 // @include		http://leprosorium.ru/*
-// @require     jquery-1.9.1.min.js
+// @require     zepto.js
 // ==/UserScript==
 
 function main(){
 
-    jQuery('#js-content_aside_subsite').css({
-        'background-color': 'white',
+    $('#js-content_aside_subsite').css({
+//        'background-color': 'white',
         'z-index': -1
     });
 
-//    jQuery('.l-header_subsite').css({
-//        'z-index': 2,
-//        height: '100%',
-//        'background-color': 'white'
-//    });
-
-    var scroll = jQuery('<div>&nbsp;</div>').attr('id', 'scroll_to_top').css({
+    var scroll = $('<div>&nbsp;</div>',{ 'id': 'scroll_to_top', onclick: "scroll(0,0);return false;"}).css({
             'background-color': "#f8f8f8",
             position: "fixed",
             width: "30px",
             height: "100%",
             left: "0px",
-//        'z-index': 1,
             top:"1px",
             display: "none",
             cursor: "pointer",
             opacity:"0.4",
             'border-right':'1px solid #ddd'
-        })
-            .attr('onclick', 'scroll(0,0); return false;')
-        ;
+        });
 
-    var wrapper = jQuery('.l-i-content');
+    var wrapper = $('.l-i-content');
 
     if( wrapper.length = 1 )
     {
-        wrapper = jQuery('.l-content');
+        wrapper = $('.l-content');
     }
 
     if( wrapper.length = 1 ) {
 
 
-        jQuery(wrapper).append(scroll);
+        $(wrapper).append(scroll);
 
-        var last_pos = jQuery(document).scrollTop();
 
-        jQuery(document).on('scroll', function () {
+        window.onscroll = function() {
 
-            var pos = jQuery(document).scrollTop()
+            setScroll();
+        };
+    }
 
-            if ( last_pos > 800 && pos < 800 ) {
-                jQuery(scroll).hide();
-            } else if ( last_pos < 800 && pos > 800 ){
-                jQuery(scroll).show();
-            }
+    function setScroll(){
 
-            last_pos = pos;
-
-        });
+        if ( $(window).scrollTop() < 800 ) {
+            $(scroll).css('display', 'none');
+        } else {
+            $(scroll).css('display', 'block');
+        }
     }
 }
 
