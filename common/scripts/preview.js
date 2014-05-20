@@ -4,7 +4,7 @@
 // @author	    Rpsl
 // @include		http://*.leprosorium.ru/*
 // @include		http://leprosorium.ru/*
-// @require     jquery-1.9.1.min.js
+// @require     zepto.js
 // ==/UserScript==
 
 function main(){
@@ -17,22 +17,21 @@ function main(){
         var inbox = false;
 
 
-        if (window.location.href.indexOf("comments") !== -1 )
+        if( window.location.href.indexOf("write") !== -1)
         {
-            textarea = jQuery('textarea.i-form_text_input');
+            textarea = $('textarea.i-form_textarea');
+            inbox = true;
 
         }
-        else if( window.location.href.indexOf("write") !== -1 )
+        else if (window.location.href.indexOf("comments") !== -1 || window.location.href.indexOf("inbox") !== -1)
         {
-            textarea = jQuery('textarea.i-form_textarea');
-            inbox = true;
+            textarea = $('textarea.i-form_text_input');
         }
         else if (window.location.href.indexOf("asylum") != -1)
         {
-            textarea = jQuery('#js-new_post_body');
+            textarea = $('#js-new_post_body');
             asylum = true;
         }
-
 
         if( !textarea )
         {
@@ -40,24 +39,24 @@ function main(){
         }
 
 
-        jQuery(textarea).each(function(k,v){
+        $(textarea).each(function(k,v){
 
             textarea = v;
 
             if( asylum )
             {
-                toolbar = jQuery(textarea).parent().parent().parent().find('#js-new_post_body_wysiwyg')
+                toolbar = $(textarea).parent().parent().parent().find('#js-new_post_body_wysiwyg')
             }
             else if ( inbox )
             {
-                toolbar = jQuery(textarea).parent().find('#js-new_inbox_wysiwyg')
+                toolbar = $(textarea).parent().find('#js-new_inbox_wysiwyg')
             }
             else
             {
-                toolbar = jQuery( textarea).parent().parent().find('.b-textarea_editor');
+                toolbar = $( textarea).parent().parent().find('.b-textarea_editor');
             }
 
-            var check = jQuery(toolbar).find('a.textarea_preview');
+            var check = $(toolbar).find('a.textarea_preview');
 
             if( check.length == 0 ) {
 
@@ -73,7 +72,7 @@ function main(){
                     preview = document.createElement('tr');
                     preview.innerHTML = '<td colspan="3"><div style="margin-top:20px;" class="lp_preview"></div></td>';
                     //                toolbar.parentNode.parentNode.insertBefore(preview, toolbar.parentNode);
-                    jQuery(toolbar).parent().parent().append(preview);
+                    $(toolbar).parent().parent().append(preview);
                 }
                 else if ( inbox )
                 {
@@ -82,7 +81,7 @@ function main(){
                     preview.className = "lp_preview";
                     preview.setAttribute('style', "margin-top: 20px;");
 
-                    jQuery(toolbar).parent().after(preview);
+                    $(toolbar).parent().after(preview);
                 }
                 else
                 {
@@ -90,15 +89,15 @@ function main(){
                     preview.className = "lp_preview";
                     preview.setAttribute('style', "margin-top: 20px;");
 
-                    jQuery(toolbar).parent().after(preview);
+                    $(toolbar).parent().after(preview);
                 }
 
-                jQuery(toolbar).append(d);
+                $(toolbar).append(d);
             }
 
         });
 
-        jQuery('.textarea_preview').on('click', function(e){
+        $('.textarea_preview').on('click', function(e){
 
             if( asylum ) {
                 var value = $(this).parent().parent().parent().find('textarea').val();
@@ -121,7 +120,7 @@ function main(){
         });
     }
 
-    jQuery('.c_answer').on('click',function(){
+    $('.c_answer').on('click',function(){
         initPreview();
     });
 
