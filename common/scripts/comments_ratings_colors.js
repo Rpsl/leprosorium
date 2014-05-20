@@ -4,7 +4,7 @@
 // @description    Увеличивает размер и меняет цвет шрифта оценки в зависимости от рейтинга. Делает оценку O белой.
 // @include        http://leprosorium.ru/comments/*
 // @include        http://*.leprosorium.ru/comments/*
-// @require        jquery-1.9.1.min.js
+// @require        zepto.js
 // ==/UserScript==
 
 function main() {
@@ -20,11 +20,11 @@ function main() {
         else return "0" + str;
     }
 
-    var vote_results = jQuery('#js-commentsHolder .vote_result');
+    var vote_results = $('#js-commentsHolder').find('.vote_result');
     var good_limit = 300;
 
-    jQuery.each(vote_results, function(k, v) {
-        var rating = parseInt(jQuery(v).text(), 10);
+    $.each(vote_results, function(k, v) {
+        var rating = parseInt($(v).html(), 10);
 
         var style = {};
 
@@ -47,7 +47,7 @@ function main() {
 
         style["font-size"] = Math.min(16, 9 + 2 * Math.log(Math.abs(rating) + 1)) + "px"
 
-        jQuery(v).css(style);
+        $(v).css(style);
 
     });
 }

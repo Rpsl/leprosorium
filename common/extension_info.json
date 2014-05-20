@@ -1,7 +1,9 @@
 {
     "content_scripts": [
         "scripts/preview.js",
-        "scripts/nice_comment_navigation.js"
+        "scripts/nice_comment_navigation.js",
+        "scripts/comments_ratings_colors.js",
+        "scripts/remove_comments_borders.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",

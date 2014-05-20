@@ -10,7 +10,7 @@ function main() {
 
     var style = document.createElement('style');
     style.type = 'text/css';
-    style.innerHTML = '.b-comment_outline { border: none; }';
+    style.innerHTML = '.b-comment_outline { border: none; } .b-icon_button_close { opacity: 0.5 }';
 
     var head = document.getElementsByTagName('head')[0];
     head.appendChild(style);
