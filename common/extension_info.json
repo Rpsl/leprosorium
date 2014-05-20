@@ -4,7 +4,8 @@
         "scripts/nice_comment_navigation.js",
         "scripts/comments_ratings_colors.js",
         "scripts/remove_comments_borders.js",
-        "scripts/lepro_scroll.js"
+        "scripts/lepro_scroll.js",
+        "scripts/user_numbers.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",

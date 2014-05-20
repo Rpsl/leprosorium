@@ -7,7 +7,7 @@
 // @include 		http://*leprosorium.ru/comments/*
 // @include 		http://*leprosorium.ru/*
 // @include 		http://*leprosorium.ru/users/*
-// @require        jquery-1.9.1.min.js
+// @require     zepto.js
 // ==/UserScript==
 
 function main()
@@ -44,7 +44,7 @@ function main()
 
     function handleComment(event) {
 
-        var check = jQuery(event.target).find('.ddi');
+        var check = $(event.target).find('.ddi');
 
         if( check.length > 0 )
         {
@@ -57,14 +57,14 @@ function main()
 }
 
 function makeNumbers() {
-    jQuery('.user_number').remove();
+    $('.user_number').remove();
 
-    jQuery('.ddi').each(function(k,v){
-        var user_id = jQuery(this).find('.c_user').data('user_id');
+    $('.ddi').each(function(k,v){
+        var user_id = $(this).find('.c_user').data('user_id');
 
-        var obj = jQuery('<span></span>').addClass('user_number').html(' ' + user_id +', ');
+        var obj = $('<span></span>').addClass('user_number').html(' ' + user_id +', ');
 
-        jQuery(this).find('.js-date').before( obj );
+        $(this).find('.js-date').before( obj );
     });
 }
 
