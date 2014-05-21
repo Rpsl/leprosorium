@@ -15,7 +15,7 @@
         "main.js"
     ], 
     "homepage_url": "https://leprosorium.ru/",
-    "version": "0.5",
+    "version": "0.5.1",
     "browser_button": {
         "caption": "Leprosorium",
         "icon": "icons/button.png", 
