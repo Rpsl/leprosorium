@@ -118,7 +118,10 @@ function main() {
     }
 
     function scroll(scrollTo, time) {
-        var scrollFrom = parseInt(document.body.scrollTop),
+
+        var doc = document.documentElement || document.body;
+
+        var scrollFrom = parseInt(doc.scrollTop),
             i = 0,
             runEvery = 5; // run every 5ms
 
@@ -128,7 +131,8 @@ function main() {
         var interval = setInterval(function () {
             i++;
 
-            document.body.scrollTop = (scrollTo - scrollFrom) / time * i + scrollFrom;
+            // todo
+            $(window).scrollTop = (scrollTo - scrollFrom) / time * i + scrollFrom;
 
             if (i >= time) {
                 clearInterval(interval);
@@ -162,6 +166,8 @@ function main() {
                         options[ v.name ] = true;
                    }
                 });
+
+                options.smoothScroll = false;
 
                 var style = document.createElement("style");
                 style.type = "text/css";
