@@ -1,52 +1,58 @@
 // ==UserScript==
-// @name		Lepra Scroll Extension
-// @version		1
-// @description	Добавляет полоску «Наверх» и подсвечивает автора поста.
-// @author		boris_s
-// @namespace	LepraScrollExt
-// @include http://*.leprosorium.ru/*
-// @include http://leprosorium.ru/*
+// @name		Leprosorium scroll to top
+// @namespace	leprosorium++scrolltotopv2
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
+// @require     zepto.js
 // ==/UserScript==
 
-function main() {
+function main(){
 
+    $('#js-content_aside_subsite').css({
+//        'background-color': 'white',
+        'z-index': -1
+    });
 
-    var div = document.createElement('div'),
-        offset,
-        box,
-        originalPostName,
-        i = 2,
-        len,
-        head = document.getElementsByTagName('head')[0],
-        style = document.createElement('style'),
-        declarations = document.createTextNode('a.ophighlight { padding: 1px 3px 2px 3px; background-color: #ADC8E0; color: #ffffff; border-radius: 7px; text-decoration: none; } a.ophighlight:hover { color: #dddddd !important; } a.ophighlight:visited { color: #ffffff !important; }');
+    var scroll = $('<div>&nbsp;</div>',{ 'id': 'scroll_to_top', onclick: "scroll(0,0);return false;"}).css({
+            'background-color': "#f8f8f8",
+            position: "fixed",
+            width: "30px",
+            height: "100%",
+            left: "0px",
+            top:"1px",
+            display: "none",
+            cursor: "pointer",
+            opacity:"0.4",
+            'border-right':'1px solid #ddd'
+        });
 
-    style.type = 'text/css';
+    var wrapper = $('.l-i-content');
 
-    if (style.styleSheet) {
-        style.styleSheet.cssText = declarations.nodeValue;
-    } else {
-        style.appendChild(declarations);
+    if( wrapper.length = 1 )
+    {
+        wrapper = $('.l-content');
     }
 
-    head.appendChild(style);
+    if( wrapper.length = 1 ) {
 
-    function LepraScroll() {
-        if (document.body.firstChild)
-            document.body.insertBefore(div, document.body.firstChild);
-        else
-            document.body.appendChild(div);
-        offset = 800;
 
-        var obj = document.createElement('div');
-        obj.setAttribute('style', 'position: absolute; top: ' + offset + 'px; left: -10px; width: 4%; height:' + (document.documentElement.scrollHeight - offset - 150) + 'px; background-color: #f8f8f8; cursor: pointer; opacity:0.4; border-right:1px solid #ddd;border-radius: 40px;z-index:1000');
-        obj.setAttribute('onclick', 'scroll(0,0)');
+        $(wrapper).append(scroll);
 
-        div.appendChild(obj);
+
+        window.onscroll = function() {
+
+            setScroll();
+        };
     }
 
-    LepraScroll();
-    setInterval(LepraScroll, 10000);
+    function setScroll(){
+
+        if ( $(window).scrollTop() < 800 ) {
+            $(scroll).css('display', 'none');
+        } else {
+            $(scroll).css('display', 'block');
+        }
+    }
 }
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){

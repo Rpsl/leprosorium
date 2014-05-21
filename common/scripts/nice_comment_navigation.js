@@ -1,31 +1,34 @@
 // ==UserScript==
 // @name		Leprosorium nice comments navigation
 // @namespace	leprosorium++nicecomments
-// @include		http://*.leprosorium.ru/*
-// @include		http://leprosorium.ru/*
-// @require        jquery-1.9.1.min.js
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
+// @require     zepto.js
 // ==/UserScript==
 
 function main() {
 
+    var originalColor = null;
 
     function drawBorder(element) {
 
-        $("#" + element.id + " .b-comment_outline").addClass("comm_border");
+        $("#" + element.id).find('.b-comment_outline').addClass("comm_border");
     }
 
     function removeBorder(element) {
-        $("#" + element.id + " .b-comment_outline").removeClass("comm_border");
+        $("#" + element.id).find('.b-comment_outline').removeClass("comm_border");
     }
 
     function flashColor(element) {
-        var dt = $("#" + element.id + " .b-comment_outline");
-        var originalColor = dt.css("backgroundColor");
+        var dt = $("#" + element.id).find(".b-comment_outline");
 
+        if( originalColor == null ) {
+            originalColor = dt.css("background-color");
+        }
 
-        dt.css({backgroundColor: options.highliteColor});
+        dt.css('background-color', options.highliteColor);
         setTimeout(function () {
-            dt.css({backgroundColor: originalColor});
+            dt.css('background-color', originalColor );
         }, 350);
     }
 
@@ -38,7 +41,7 @@ function main() {
             if (index === 0) {
                 break;
             }
-        } while (window.pageYOffset > pos)
+        } while (window.pageYOffset > pos){}
         return pos - 10;
     }
 
@@ -76,14 +79,16 @@ function main() {
             drawBorder(newComms[index]);
         }
         if (options.smoothScroll) {
-            $('html,body').animate({scrollTop: pos}, 250);
+            scroll(pos, 250);
+
         } else {
             window.scroll(0, pos);
         }
+
         if (options.highliteComment) {
             flashColor(newComms[index]);
         }
-        $("#current_comment").text(index + 1);
+        $("#current_comment").html(index + 1);
     }
 
     function ScrollToNextNewComment(e) {
@@ -112,15 +117,31 @@ function main() {
         }
     }
 
+    function scroll(scrollTo, time) {
+        var scrollFrom = parseInt(document.body.scrollTop),
+            i = 0,
+            runEvery = 5; // run every 5ms
+
+        scrollTo = parseInt(scrollTo);
+        time /= runEvery;
+
+        var interval = setInterval(function () {
+            i++;
+
+            document.body.scrollTop = (scrollTo - scrollFrom) / time * i + scrollFrom;
+
+            if (i >= time) {
+                clearInterval(interval);
+            }
+        }, runEvery);
+    }
+
 
 
     if( location.pathname.search('comments') !== -1 || location.pathname.search('inbox') !== -1 ) {
 
-        var newComms = $("#js-commentsHolder .new").get();
+        var newComms = $(".new").get();
         var index = 0;
-
-
-        console.log(newComms.length);
 
         if (newComms.length > 0) {
 
@@ -148,20 +169,26 @@ function main() {
 
                 document.body.appendChild(style);
 
-                if (options.navigateWith === "arrows") {
-                    $("<div />", {class: "lc-next-block"})
-                        .append($("<span />", { text: "↑", click: ScrollToPrevNewComment }))
-                        .append($("<span />", { text: "↓", click: ScrollToNextNewComment }))
-                        .appendTo("body");
-                } else {
-                    $("<div />", { id: "lc-next-block" })
-                        .append($("<button />", { id: "current_comment", text: "1", click: ScrollToPrevNewComment}))
-                        .append($("<span />", { text: " / "}))
-                        .append($("<button />", { text: newComms.length, click: ScrollToNextNewComment}))
-                        .appendTo("body");
-                }
+                $("<div />", {class: "lc-next-block"})
+                    .append($("<span />", { text: "↑", id: "scroll_prev" }))
+                    .append($("<span />", { text: "↓", id: "scroll_next" }))
+                    .appendTo("body");
 
                 document.addEventListener('keydown', keyDownHandler, false);
+
+                $('#scroll_prev').on('click', function(e){
+
+                    ScrollToPrevNewComment(e);
+
+                    e.preventDefault();
+                });
+
+                $('#scroll_next').on('click', function(e){
+
+                    ScrollToNextNewComment(e);
+
+                    e.preventDefault();
+                });
             });
 
 

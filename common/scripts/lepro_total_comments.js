@@ -2,8 +2,8 @@
 // @name       Lepro Total Comments v2
 // @namespace   leprosorium++totalcomments
 // @description  lepro total comments v2 for fictional and not real leprosorium worls
-// @include		http://*.leprosorium.ru/*
-// @include		http://leprosorium.ru/*
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
 // @license      MIT
 // @copyright  2014+, itspoma
 // ==/UserScript==

@@ -2,13 +2,18 @@
 // @name		Leprosorium remove comments borders
 // @namespace	leprosorium++removecommentsborders
 // @author	    Rpsl
-// @include		http://*.leprosorium.ru/*
-// @include		http://leprosorium.ru/*
-// @require     jquery-1.9.1.min.js
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
 // ==/UserScript==
 
 function main() {
-    jQuery('.b-comment_outline').css('border-style', 'none');
+
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = '.b-comment_outline { border: none; } .b-icon_button_close { opacity: 0.5 }';
+
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(style);
 }
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){

@@ -1,21 +1,21 @@
 {
     "content_scripts": [
         "scripts/comments_ratings_colors.js",
-        "scripts/youtube_link_convert.js",
-        "scripts/lepro_total_comments.js",
+        "scripts/lepro_scroll.js",
+
         "scripts/nice_comment_navigation.js",
-        "scripts/remove_comments_borders.js",
         "scripts/preview.js",
+        "scripts/remove_comments_borders.js",
         "scripts/user_numbers.js",
-        "scripts/lepro_scroll.js"
+        "scripts/youtube_link_convert.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",
     "background_scripts": [
         "main.js"
     ], 
-    "homepage_url": "http://leprosorium.ru/",
-    "version": "0.4",
+    "homepage_url": "https://leprosorium.ru/",
+    "version": "0.5",
     "browser_button": {
         "caption": "Leprosorium",
         "icon": "icons/button.png", 
@@ -30,7 +30,7 @@
     "options_page": "options.html",
     "name": "Leprosorium++",
     "permissions": {
-        "content_scripts": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*"],
-        "xhr": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*"]
+        "content_scripts": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*", "https://*.leprosorium.ru/*", "https://leprosorium.ru/*"],
+        "xhr": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*", "https://*.leprosorium.ru/*", "https://leprosorium.ru/*"]
     }
 }

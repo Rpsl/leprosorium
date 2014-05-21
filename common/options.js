@@ -42,9 +42,9 @@ var Options = {
 
     isPluginOn: function( name ) {
 
-        var settings = Options.getPlugins()
+        var settings = Options.getPlugins();
 
-        name = name.replace(/[^a-zA-Z ]/g, "")
+        name = name.replace(/[^a-zA-Z ]/g, "");
 
         if( settings[ name ] == undefined || settings[ name ] == null )
         {
@@ -68,7 +68,7 @@ var Options = {
 
     setPlugin: function( name, value ){
 
-        var settings = Options.getPlugins()
+        var settings = Options.getPlugins();
 
         if( value ){
             value = 1;
