@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name		Leprosorium youtube link converter
 // @namespace	leprosorium++youtubelinks
-// @include		http://*.leprosorium.ru/*
-// @include		http://leprosorium.ru/*
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
 // ==/UserScript==
 'use strict';
 
