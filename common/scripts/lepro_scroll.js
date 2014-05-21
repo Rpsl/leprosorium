@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name		Leprosorium scroll to top
 // @namespace	leprosorium++scrolltotopv2
-// @include		http://*.leprosorium.ru/*
-// @include		http://leprosorium.ru/*
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
 // @require     zepto.js
 // ==/UserScript==
 

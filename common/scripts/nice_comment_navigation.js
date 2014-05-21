@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name		Leprosorium nice comments navigation
 // @namespace	leprosorium++nicecomments
-// @include		http://*.leprosorium.ru/*
-// @include		http://leprosorium.ru/*
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
 // @require     zepto.js
 // ==/UserScript==
 

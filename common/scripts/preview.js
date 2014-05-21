@@ -2,8 +2,8 @@
 // @name		Leprosorium comments preview
 // @namespace	leprosorium++preview
 // @author	    Rpsl
-// @include		http://*.leprosorium.ru/*
-// @include		http://leprosorium.ru/*
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
 // @require     zepto.js
 // ==/UserScript==
 

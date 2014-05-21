@@ -2,8 +2,8 @@
 // @name		Leprosorium remove comments borders
 // @namespace	leprosorium++removecommentsborders
 // @author	    Rpsl
-// @include		http://*.leprosorium.ru/*
-// @include		http://leprosorium.ru/*
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
 // ==/UserScript==
 
 function main() {

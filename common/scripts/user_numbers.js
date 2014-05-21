@@ -4,9 +4,9 @@
 // @version 		2.1
 // @namespace 		http://leprosorium.ru/*
 // @description   	Shows user numbers
-// @include 		http://*leprosorium.ru/comments/*
-// @include 		http://*leprosorium.ru/*
-// @include 		http://*leprosorium.ru/users/*
+// @include 		*leprosorium.ru/comments/*
+// @include 		*leprosorium.ru/*
+// @include 		*leprosorium.ru/users/*
 // @require     zepto.js
 // ==/UserScript==
 
