@@ -3,6 +3,8 @@
 // @namespace	leprosorium++scrolltotopv2
 // @include		*.leprosorium.ru/*
 // @include		*leprosorium.ru/*
+// @include		*.leprosorium.com/*
+// @include		*leprosorium.com/*
 // @require     zepto.js
 // ==/UserScript==
 

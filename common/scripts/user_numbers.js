@@ -7,6 +7,9 @@
 // @include 		*leprosorium.ru/comments/*
 // @include 		*leprosorium.ru/*
 // @include 		*leprosorium.ru/users/*
+// @include 		*leprosorium.com/comments/*
+// @include 		*leprosorium.com/*
+// @include 		*leprosorium.com/users/*
 // @require     zepto.js
 // ==/UserScript==
 

@@ -2,8 +2,10 @@
 // @name           Size and color of rating according to it, no Zero
 // @namespace      leprosorium++commentsratings
 // @description    Увеличивает размер и меняет цвет шрифта оценки в зависимости от рейтинга. Делает оценку O белой.
-// @include        *leprosorium.ru/comments/*
-// @include        *.leprosorium.ru/comments/*
+// @include		*.leprosorium.ru/*
+// @include		*leprosorium.ru/*
+// @include		*.leprosorium.com/*
+// @include		*leprosorium.com/*
 // @require        zepto.js
 // ==/UserScript==
 

@@ -3,6 +3,8 @@
 // @namespace	leprosorium++youtubelinks
 // @include		*.leprosorium.ru/*
 // @include		*leprosorium.ru/*
+// @include		*.leprosorium.com/*
+// @include		*leprosorium.com/*
 // ==/UserScript==
 'use strict';
 

@@ -4,6 +4,8 @@
 // @description  lepro total comments v2 for fictional and not real leprosorium worls
 // @include		*.leprosorium.ru/*
 // @include		*leprosorium.ru/*
+// @include		*.leprosorium.com/*
+// @include		*leprosorium.com/*
 // @license      MIT
 // @copyright  2014+, itspoma
 // ==/UserScript==

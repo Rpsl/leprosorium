@@ -30,7 +30,7 @@
     "options_page": "options.html",
     "name": "Leprosorium++",
     "permissions": {
-        "content_scripts": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*", "https://*.leprosorium.ru/*", "https://leprosorium.ru/*"],
-        "xhr": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*", "https://*.leprosorium.ru/*", "https://leprosorium.ru/*"]
+        "content_scripts": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*", "https://*.leprosorium.ru/*", "https://leprosorium.ru/*", "http://*.leprosorium.com/*", "http://leprosorium.com/*", "https://*.leprosorium.com/*", "https://leprosorium.com/*" ],
+        "xhr": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*", "https://*.leprosorium.ru/*", "https://leprosorium.ru/*", "http://*.leprosorium.com/*", "http://leprosorium.com/*", "https://*.leprosorium.com/*", "https://leprosorium.com/*" ]
     }
 }

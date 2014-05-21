@@ -4,6 +4,8 @@
 // @author	    Rpsl
 // @include		*.leprosorium.ru/*
 // @include		*leprosorium.ru/*
+// @include		*.leprosorium.com/*
+// @include		*leprosorium.com/*
 // ==/UserScript==
 
 function main() {
