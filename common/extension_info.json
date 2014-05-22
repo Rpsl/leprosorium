@@ -2,7 +2,7 @@
     "content_scripts": [
         "scripts/comments_ratings_colors.js",
         "scripts/lepro_scroll.js",
-
+        "scripts/lepro_total_comments.js",
         "scripts/nice_comment_navigation.js",
         "scripts/preview.js",
         "scripts/remove_comments_borders.js",
@@ -15,7 +15,7 @@
         "main.js"
     ], 
     "homepage_url": "https://leprosorium.ru/",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "browser_button": {
         "caption": "Leprosorium",
         "icon": "icons/button.png", 
