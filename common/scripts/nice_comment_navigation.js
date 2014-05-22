@@ -169,6 +169,8 @@ function main() {
                    }
                 });
 
+                options.smoothScroll = false;
+
                 var style = document.createElement("style");
                 style.type = "text/css";
                 style.innerHTML = ".lc-next-block {  position: fixed;  top: 400px;  right: 0px;  z-index: 100;  }  .lc-next-block span {  display: block;  width: 28px;  height: 28px;  color: #000;  background-color: #fff;  border: 1px solid #000;  padding: 0pt;  margin: 0pt;  margin-bottom: 1px;  cursor: pointer;  opacity: 0.25;  height: 100%;  padding: 6px 0; text-align: center; }  .lc-next-block span:hover {  opacity: 1;  }  .comm_border {  border: 1px solid black !important;  }  ";
