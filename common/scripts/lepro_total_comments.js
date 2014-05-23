@@ -31,7 +31,7 @@ function main() {
                 var stopWords = ['inbox', 'инбокс', 'инбоск'],
                     stopWord, i;
 
-                for (i = 0; i < stopWords.length; i++) {
+                for (var i = 0; i < stopWords.length; i++) {
                     stopWord = stopWords[i];
 
                     if (comment.body.indexOf(stopWord) !== -1) {
@@ -72,7 +72,7 @@ function main() {
                 var rating_square_sum = 0;
                 var rating_sum = 0;
 
-                for (i = 0; i < comments.length; i++) {
+                for (var i = 0; i < commentsLength; i++) {
                     var comment = parseComment(comments[i]);
 
                     if (comment.rating > 0) {
@@ -213,7 +213,7 @@ function main() {
             }
         }
 
-        for (i = 0; i < comments.length; i++) {
+        for (var i = 0; i < commentsLength; i++) {
             var comment = comments[i];
 
             for (var modeName in modes) {
@@ -297,7 +297,7 @@ function main() {
 
     var appendAuthorsSearchLink = function () {
 
-        for (i = 0; i < comments.length; i++) {
+        for (var i = 0; i < commentsLength; i++) {
             var commentEl = comments[i];
             var comment = parseComment(comments[i]);
 
@@ -352,7 +352,7 @@ function main() {
 
         var containerEls = panelEl.getElementsByClassName('ltc-container');
 
-        for (var i = 0; i < containerEls.length; i++) {
+        for (var i = 0, len = containerEls.length; i < len; i++) {
             var containerEl = containerEls[i];
 
             if (containerEl.classList.contains('selected') === true) {
@@ -395,7 +395,7 @@ function main() {
         if (countEl) countEl.classList.add('selected');
         if (countEl) countEl.style.background = '#DFDFDF';
 
-        for (i = 0; i < comments.length; i++) {
+        for (var i = 0; i < commentsLength; i++) {
             var comment = comments[i];
             if (mode.isMatch(parseComment(comment)) !== true) {
                 comment.style.display = 'none';
