@@ -1,22 +1,21 @@
 // ==UserScript==
-// @name       Lepro Total Comments v2
+// @name       Lepro Total Comments v3
 // @namespace   leprosorium++totalcomments
-// @description  lepro total comments v2 for fictional and not real leprosorium worls
+// @description  lepro total comments v3 for fictional and not real leprosorium worls
 // @include		*.leprosorium.ru/*
 // @include		*leprosorium.ru/*
 // @include		*.leprosorium.com/*
 // @include		*leprosorium.com/*
 // @license      MIT
-// @copyright  2014+, itspoma
+// @copyright  2014+, itspoma, barbie
 // ==/UserScript==
 
 
 function main() {
-    var pluginId = 'lepro-total-comments-v2';
-    var defaultMode = 'allall';
-    var viewModeCookie = pluginId + '-view-mode';
-
-    var hideBuiltInPanel = true;
+    var pluginId = 'lepro-total-comments-v2',
+        defaultMode = 'allall',
+        comments, commentsLength,
+        hideBuiltInPanel = true;
 
     var modes = {
         'all': {
@@ -29,7 +28,7 @@ function main() {
                     return true;
                 }
 
-                var stopWords = ['inbox', 'инбокс', 'инбоск', ],
+                var stopWords = ['inbox', 'инбокс', 'инбоск'],
                     stopWord, i;
 
                 for (i = 0; i < stopWords.length; i++) {
@@ -68,7 +67,6 @@ function main() {
         'nice': {
             title: 'клеви',
             init: function () {
-                var comments = getAllComments();
 
                 var abovenull = 0;
                 var rating_square_sum = 0;
@@ -174,10 +172,6 @@ function main() {
         }
         ;
 
-    var getAllComments = function () {
-        return document.getElementsByClassName('comment');
-    };
-
     var parseComment = function (commentEl) {
         return {
             el: commentEl,
@@ -189,16 +183,14 @@ function main() {
 
     // Рисуем панельку с кнопками вызова режима фильтрации
     var createPanel = function () {
+
         var panelEl = document.getElementById(pluginId);
-        if (panelEl) {
-            removeElement(panelEl);
-        }
 
-        if (hideBuiltInPanel) {
-            document.getElementsByClassName('b-comments_controls')[0].style.display = 'none';
-        }
+        if (panelEl) removeElement(panelEl);
 
-        var panelEl = document.createElement('div');
+        if (hideBuiltInPanel) document.getElementsByClassName('b-comments_controls')[0].style.display = 'none';
+
+        panelEl = document.createElement('div');
         panelEl.id = pluginId;
         panelEl.style.marginTop = '-30px';
         panelEl.style.marginBottom = '25px';
@@ -210,8 +202,6 @@ function main() {
         introEl.style.marginRight = '10px';
         introEl.textContent = 'Показать комментарии:';
         panelEl.appendChild(introEl);
-
-        var comments = getAllComments();
 
         var counter = {};
 
@@ -306,7 +296,6 @@ function main() {
     };
 
     var appendAuthorsSearchLink = function () {
-        var comments = getAllComments();
 
         for (i = 0; i < comments.length; i++) {
             var commentEl = comments[i];
@@ -406,8 +395,6 @@ function main() {
         if (countEl) countEl.classList.add('selected');
         if (countEl) countEl.style.background = '#DFDFDF';
 
-        var comments = getAllComments();
-
         for (i = 0; i < comments.length; i++) {
             var comment = comments[i];
             if (mode.isMatch(parseComment(comment)) !== true) {
@@ -424,6 +411,9 @@ function main() {
     var work = function () {
 
         if( location.pathname.search('comments') !== -1 ) {
+
+            comments = document.getElementsByClassName('comment');
+            commentsLength = comments.length;
 
             createPanel();
             appendAuthorsSearchLink();
