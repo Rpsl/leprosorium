@@ -12,69 +12,47 @@
 
 
 function main() {
+
     var pluginId = 'lepro-total-comments-v2',
-        defaultMode = 'allall',
+        defaultMode = 'all',
         hashPrefix = 'ltc-',
         hashRegex = new RegExp(hashPrefix),
-        comments, commentsLength, mode, authors = {};
+        standard_deviation = 0,
+        style, panelEl, comments, commentsLength, mode, authors = {};
 
     var modes = {
+
         'all': {
             title: 'все',
-            isMatch: function (comment) {
-                if (comment.body.length > 60) {
-                    return true;
-                }
-                if (comment.rating > 5) {
-                    return true;
-                }
-
-                var stopWords = ['inbox', 'инбокс', 'инбоск'],
-                    stopWord, i;
-
-                for (var i = 0; i < stopWords.length; i++) {
-                    stopWord = stopWords[i];
-
-                    if (comment.body.indexOf(stopWord) !== -1) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
+            isMatch: function () { return true; }
         },
 
-        'newcomment': {
+        'new': {
             title: 'новые',
-            isMatch: function (comment) {
-                return comment.el.classList.contains('new');
-            }
+            isMatch: function (comment) { return comment.el.classList.contains('new'); }
         },
 
         'image': {
-            title: 'с картинками',
-            isMatch: function (comment) {
-                return comment.body.indexOf('<img ') !== -1;
-            }
+            title: 'картинки',
+            isMatch: function (comment) { return /<img\s/.test(comment.body); }
         },
 
         'link': {
             title: 'ссылки',
-            isMatch: function (comment) {
-                return comment.body.indexOf('<a ') !== -1;
-            }
+            isMatch: function (comment) { return /<a\s/.test(comment.body); }
         },
 
         'nice': {
             title: 'клеви',
             init: function () {
 
-                var abovenull = 0;
-                var rating_square_sum = 0;
-                var rating_sum = 0;
+                var abovenull = 0,
+                    rating_square_sum = 0,
+                    rating_sum = 0, comment;
 
                 for (var i = 0; i < commentsLength; i++) {
-                    var comment = parseComment(comments[i]);
+
+                    comment = parseComment(comments[i]);
 
                     if (comment.rating > 0) {
                         abovenull++;
@@ -86,25 +64,34 @@ function main() {
                 standard_deviation = Math.sqrt(( rating_square_sum - (Math.pow(rating_sum, 2) / abovenull) ) / (abovenull - 1));
             },
             isMatch: function (comment) {
-                if (comment.rating <= 0) {
-                    return false;
-                }
-
+                if (comment.rating <= 0) return false;
                 return (comment.rating / standard_deviation) >= 0.8;
             }
         },
 
         'mine': {
             title: 'мои',
+            isMatch: function (comment) { return comment.el.classList.contains('mine'); }
+        },
+
+        'male': {
+            title: 'М',
             isMatch: function (comment) {
-                return comment.el.classList.contains('mine');
+                return /Написал\s/.test(comment.el.querySelector('.ddi').innerText)
+            }
+        },
+
+        'female': {
+            title: 'Ж',
+            isMatch: function (comment) {
+                return /Написала\s/.test(comment.el.querySelector('.ddi').innerText)
             }
         },
 
         'author': {
             title: 'по автору:',
             render: function (containerEl) {
-                var author, dataList,
+                var author, dataList, authorEl,
                     filterByAuthor = function () {
                     var author = document.getElementById('ltc-author-name').value;
                     if (author.length < 0) return;
@@ -112,15 +99,12 @@ function main() {
                     setViewMode('author');
                 };
 
-                var authorEl = document.createElement('INPUT');
-                authorEl.id = 'ltc-author-name';
-                authorEl.style.width = '80px';
-                authorEl.style.marginLeft = '3px';
-                authorEl.style.padding = '3px';
-                authorEl.style.font = '11px Verdana';
+                authorEl = elemWithId('input', 'ltc-author-name');
+
                 authorEl.setAttribute('placeholder', 'ник автора');
                 authorEl.setAttribute('list', 'authors');
-                authorEl.addEventListener("change", function (event) {
+
+                authorEl.addEventListener("change", function () {
                     filterByAuthor();
                     return false;
                 });
@@ -129,8 +113,7 @@ function main() {
                     filterByAuthor();
                 });
 
-                dataList = document.createElement('datalist');
-                dataList.id = 'authors';
+                dataList = elemWithId('datalist', 'authors');
 
                 for (author in authors) {
                     var option = document.createElement('option');
@@ -139,7 +122,6 @@ function main() {
                 }
 
                 containerEl.appendChild(dataList);
-
                 containerEl.appendChild(authorEl);
 
                 return containerEl;
@@ -152,31 +134,31 @@ function main() {
 
                 return comment.author === authorValue;
             }
-        },
-
-        'allall': {
-            title: 'все-все',
-            isMatch: function (comment) {
-                return true;
-            }
         }
     };
 
-    var standard_deviation = 0;
-
-    //
-
-    var gc = function (n) {
-            return document.getElementsByClassName(n);
+    // helpful functions
+    var elemWithId = function (tag, id) {
+        var el = document.createElement(tag);
+            el.id = id;
+            return el;
         },
+
         insertAfter = function (where, what) {
             where.parentNode.insertBefore(what, where.nextSibling);
         },
+
         removeElement = function (el) {
             el.parentNode.removeChild(el);
-        };
+        },
 
-    var parseComment = function (commentEl) {
+        iterateOverModes = function(func) {
+            for (var name in modes) {
+                if (modes.hasOwnProperty(name)) func(modes[name], name);
+            }
+        },
+
+        parseComment = function (commentEl) {
         return {
             el: commentEl,
             body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
@@ -188,36 +170,27 @@ function main() {
     // Рисуем панельку с кнопками вызова режима фильтрации
     var createPanel = function () {
 
-        var panelEl = document.getElementById(pluginId),
-            mode, modeName;
+        var mode, introEl, counter = {};
+
+        panelEl = document.getElementById(pluginId);
 
         if (panelEl) removeElement(panelEl);
 
         document.getElementsByClassName('b-comments_controls')[0].style.display = 'none';
 
-        panelEl = document.createElement('div');
-        panelEl.id = pluginId;
-        panelEl.style.marginTop = '-30px';
-        panelEl.style.marginBottom = '25px';
-        panelEl.style.padding = '5px 10px 5px 10px';
-        panelEl.style.background = '#F5F5F5';
-        panelEl.style.width = '95%';
+        panelEl = elemWithId('div', pluginId);
+        panelEl.className = 'ltc-panel';
 
-        var introEl = document.createElement('span');
+        introEl = document.createElement('span');
         introEl.style.marginRight = '10px';
         introEl.textContent = 'Показать комментарии:';
         panelEl.appendChild(introEl);
 
-        var counter = {};
+        iterateOverModes(function (mode) {
+            if (typeof mode.init !== 'undefined') mode.init();
+        });
 
-        for (modeName in modes) {
-            mode = modes[modeName];
-
-            if (typeof mode.init !== 'undefined') {
-                mode.init();
-            }
-        }
-
+        // парсинг комментов, подсчет количества комментов по фильтрам
         for (var i = 0; i < commentsLength; i++) {
 
             var comment = parseComment(comments[i]);
@@ -225,43 +198,25 @@ function main() {
             comment.el.setAttribute('data-author', comment.author);
             authors[comment.author] = authors.hasOwnProperty(comment.author) ? authors[comment.author] + 1 : 1;
 
-            for (modeName in modes) {
-
-                mode = modes[modeName];
-
-                if (mode.showCount === false) {
-                    continue;
-                }
-
-                if (typeof counter[modeName] == 'undefined') {
-                    counter[modeName] = 0;
-                }
-
-                if (mode.isMatch(comment) === true) {
-                    counter[modeName]++;
-                }
-            }
+            iterateOverModes(function(mode, modeName) {
+                if (mode.showCount === false) return;
+                if (!counter.hasOwnProperty(modeName)) counter[modeName] = 0;
+                if (mode.isMatch(comment)) counter[modeName]++; // todo mutable variable is accessible from closure
+            })
         }
 
-        var modeName;
-        for (modeName in modes) {
-            mode = modes[modeName];
+        iterateOverModes(function(mode, modeName) {
 
-            var containerEl = document.createElement('span');
-            containerEl.id = 'ltc-container-' + modeName;
+            var containerEl = elemWithId('span', 'ltc-container-' + modeName);
             containerEl.className = 'ltc-container';
 
-            var linkEl = document.createElement('span');
-            linkEl.style.cursor = 'pointer';
-            linkEl.style.textDecoration = 'none';
-            linkEl.style.color = '#888';
-            linkEl.style.borderBottom = '1px dotted';
+            var linkEl = elemWithId('span', 'ltc-mode-' + modeName);
+
             if (modeName !== 'all') {
                 linkEl.style.marginLeft = '15px';
             }
 
             linkEl.className = 'ltc-mode';
-            linkEl.id = 'ltc-mode-' + modeName;
 
             linkEl.appendChild(document.createTextNode(mode.title));
             linkEl.addEventListener("click", function (ev) {
@@ -269,9 +224,7 @@ function main() {
                 return false;
             }, false);
 
-            if (typeof mode.tooltip !== 'undefined') {
-                linkEl.setAttribute('title', mode.tooltip);
-            }
+            if (typeof mode.tooltip !== 'undefined') linkEl.setAttribute('title', mode.tooltip);
 
             containerEl.appendChild(linkEl);
 
@@ -279,12 +232,6 @@ function main() {
                 var count = counter[modeName] || '0';
 
                 var countEl = document.createElement('span');
-                countEl.style.marginLeft = '3px';
-                countEl.style.background = '#EEE';
-                countEl.style.padding = '4px';
-                countEl.style.borderRadius = '5px';
-                countEl.style.font = '10px Verdana';
-
                 countEl.className = 'ltc-count';
                 countEl.appendChild(document.createTextNode(count));
                 countEl.addEventListener("click", function (ev) {
@@ -295,14 +242,12 @@ function main() {
                 containerEl.appendChild(countEl);
             }
 
-            if (typeof mode.render !== 'undefined') {
-                containerEl = mode.render(containerEl);
-            }
+            if (typeof mode.render !== 'undefined') containerEl = mode.render(containerEl);
 
             panelEl.appendChild(containerEl);
-        }
+        });
 
-        insertAfter(gc('b-comments_controls')[0], panelEl);
+        insertAfter(document.getElementsByClassName('b-comments_controls')[0], panelEl);
     };
 
     var resetPanel = function () {
@@ -327,7 +272,6 @@ function main() {
     };
 
     var getViewMode = function () {
-        var panelEl = document.getElementById(pluginId);
 
         var containerEls = panelEl.getElementsByClassName('ltc-container');
 
@@ -343,13 +287,16 @@ function main() {
     };
 
     var setViewMode = function (modeName) {
-        var mode = modes[modeName];
+
+        var mode, selectedMode, containerEl;
+
+        mode = modes[modeName];
         if (!mode) return;
 
-        var selectedMode = getViewMode();
+        selectedMode = getViewMode();
         if (mode === selectedMode) return;
 
-        var containerEl = document.getElementById('ltc-container-' + modeName);
+        containerEl = document.getElementById('ltc-container-' + modeName);
         if (!containerEl) return;
 
         resetPanel();
@@ -359,29 +306,21 @@ function main() {
             location.hash = '#ltc-author-' + authorValue;
         }
         else {
-            location.hash = '#ltc-' + modeName;
+            if (modeName !== defaultMode) location.hash = '#ltc-' + modeName;
+            else if (modeName === defaultMode) location.hash = '';
         }
-        //setCookie(viewModeCookie, modeName, location.pathname);
 
         containerEl.classList.add('selected');
 
         var linkEl = containerEl.getElementsByClassName('ltc-mode')[0];
         linkEl.classList.add('selected');
-        linkEl.style.color = 'black';
-        linkEl.style.borderBottom = 'none';
 
         var countEl = containerEl.getElementsByClassName('ltc-count')[0];
         if (countEl) countEl.classList.add('selected');
-        if (countEl) countEl.style.background = '#DFDFDF';
 
         for (var i = 0; i < commentsLength; i++) {
-            var comment = comments[i];
-            if (mode.isMatch(parseComment(comment)) !== true) {
-                comment.style.display = 'none';
-            }
-            else {
-                comment.style.display = 'block';
-            }
+            if ( !mode.isMatch(parseComment(comments[i])) ) comments[i].style.display = 'none';
+            else comments[i].style.display = 'block';
         }
     };
 
@@ -409,12 +348,32 @@ function main() {
         setViewMode(defaultMode);
     }
 
-    document.body.addEventListener('click', function(ev){
-        if (ev.target.className === 'c_show_user') {
+    document.body.addEventListener('click', function(ev) {
+
+        var className = ev.target.className;
+
+        if (className === 'c_show_user') {
             document.getElementById('ltc-author-name').value = ev.target.parentNode.parentNode.parentNode.parentNode.getAttribute('data-author');
-            setViewMode('author')
+            setViewMode('author');
+        }
+
+        if (className === 'c_parent') {
+            var parentId = ev.target.getAttribute('replyTo'),
+                parentComment = document.getElementById(parentId);
+            parentComment.style.display = 'block';
         }
     });
+
+    style = document.createElement("style");
+    style.type = "text/css";
+    style.innerHTML = ".ltc-panel { width: 95%; background: #F5F5F5; padding: 5px 10px; margin: -30px 0 25px 0 } \
+                        .ltc-container > span { cursor: pointer; color: #888; border-bottom: 1px dotted; text-decoration: none } \
+                        .ltc-count { margin-left: 3px; background: #EEE; padding: 4px; border-radius: 5px; font: 10px Verdana } \
+                        #ltc-author-name { width: 100px; margin-left: 5px; padding: 3px; font: 11px Verdata  } \
+                        .ltc-mode.selected { color: #000; border-bottom: none} \
+                        .ltc-count.selected { background: #DFDFDF }";
+
+    document.body.appendChild(style);
 
 }
 
