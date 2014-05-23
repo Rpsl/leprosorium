@@ -14,8 +14,9 @@
 function main() {
     var pluginId = 'lepro-total-comments-v2',
         defaultMode = 'allall',
-        comments, commentsLength,
-        hideBuiltInPanel = true;
+        hashPrefix = 'ltc-',
+        hashRegex = new RegExp(hashPrefix),
+        comments, commentsLength, mode;
 
     var modes = {
         'all': {
@@ -188,7 +189,7 @@ function main() {
 
         if (panelEl) removeElement(panelEl);
 
-        if (hideBuiltInPanel) document.getElementsByClassName('b-comments_controls')[0].style.display = 'none';
+        document.getElementsByClassName('b-comments_controls')[0].style.display = 'none';
 
         panelEl = document.createElement('div');
         panelEl.id = pluginId;
@@ -406,37 +407,32 @@ function main() {
         }
     };
 
-    //
+    /* Start script execution */
 
-    var work = function () {
+    if( !/comments/.test(location.pathname) ) return;
 
-        if( location.pathname.search('comments') !== -1 ) {
+    comments = document.getElementsByClassName('comment');
+    commentsLength = comments.length;
 
-            comments = document.getElementsByClassName('comment');
-            commentsLength = comments.length;
+    createPanel();
+    appendAuthorsSearchLink();
 
-            createPanel();
-            appendAuthorsSearchLink();
+    if ( hashRegex.test(location.hash) ) {
 
-            if (location.hash.search('#ltc-') !== -1) {
-                var mode = location.hash.replace('#ltc-', '');
+        mode = location.hash.replace('#' + hashPrefix, '');
 
-                if (mode.search('author-') === 0) {
-                    document.getElementById('ltc-author-name').value = mode.replace('author-', '');
-                    setViewMode('author');
-                }
-                else {
-                    setViewMode(mode);
-                }
-            }
-            else {
-                setViewMode(defaultMode);
-            }
+        if (mode.search('author-') === 0) {
+            document.getElementById('ltc-author-name').value = mode.replace('author-', '');
+            setViewMode('author');
         }
-    };
+        else {
+            setViewMode(mode);
+        }
+    } else {
+        setViewMode(defaultMode);
+    }
 
-    work();
-};
+}
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
 
