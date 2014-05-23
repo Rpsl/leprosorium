@@ -16,7 +16,7 @@ function main() {
         defaultMode = 'allall',
         hashPrefix = 'ltc-',
         hashRegex = new RegExp(hashPrefix),
-        comments, commentsLength, mode;
+        comments, commentsLength, mode, authors = {};
 
     var modes = {
         'all': {
@@ -104,7 +104,8 @@ function main() {
         'author': {
             title: 'по автору:',
             render: function (containerEl) {
-                var filterByAuthor = function () {
+                var author, dataList,
+                    filterByAuthor = function () {
                     var author = document.getElementById('ltc-author-name').value;
                     if (author.length < 0) return;
 
@@ -118,6 +119,7 @@ function main() {
                 authorEl.style.padding = '3px';
                 authorEl.style.font = '11px Verdana';
                 authorEl.setAttribute('placeholder', 'ник автора');
+                authorEl.setAttribute('list', 'authors');
                 authorEl.addEventListener("change", function (event) {
                     filterByAuthor();
                     return false;
@@ -126,6 +128,17 @@ function main() {
                     if (event.keyCode != 13) return false;
                     filterByAuthor();
                 });
+
+                dataList = document.createElement('datalist');
+                dataList.id = 'authors';
+
+                for (author in authors) {
+                    var option = document.createElement('option');
+                    option.value = author;
+                    dataList.appendChild(option);
+                }
+
+                containerEl.appendChild(dataList);
 
                 containerEl.appendChild(authorEl);
 
@@ -161,17 +174,7 @@ function main() {
         },
         removeElement = function (el) {
             el.parentNode.removeChild(el);
-        },
-        setCookie = function (k, v, path) {
-            path = path || '/';
-            document.cookie = k + '=' + escape(v) + '; path=' + path + ';';
-        },
-        getCookie = function (k) {
-            v = document.cookie.match(new RegExp(k + '=(.+?);'));
-            if (!v) return null;
-            return unescape(v[1]);
-        }
-        ;
+        };
 
     var parseComment = function (commentEl) {
         return {
@@ -185,7 +188,8 @@ function main() {
     // Рисуем панельку с кнопками вызова режима фильтрации
     var createPanel = function () {
 
-        var panelEl = document.getElementById(pluginId);
+        var panelEl = document.getElementById(pluginId),
+            mode, modeName;
 
         if (panelEl) removeElement(panelEl);
 
@@ -206,8 +210,8 @@ function main() {
 
         var counter = {};
 
-        for (var modeName in modes) {
-            var mode = modes[modeName];
+        for (modeName in modes) {
+            mode = modes[modeName];
 
             if (typeof mode.init !== 'undefined') {
                 mode.init();
@@ -215,10 +219,15 @@ function main() {
         }
 
         for (var i = 0; i < commentsLength; i++) {
-            var comment = comments[i];
 
-            for (var modeName in modes) {
-                var mode = modes[modeName];
+            var comment = parseComment(comments[i]);
+
+            comment.el.setAttribute('data-author', comment.author);
+            authors[comment.author] = authors.hasOwnProperty(comment.author) ? authors[comment.author] + 1 : 1;
+
+            for (modeName in modes) {
+
+                mode = modes[modeName];
 
                 if (mode.showCount === false) {
                     continue;
@@ -228,7 +237,7 @@ function main() {
                     counter[modeName] = 0;
                 }
 
-                if (mode.isMatch(parseComment(comment)) === true) {
+                if (mode.isMatch(comment) === true) {
                     counter[modeName]++;
                 }
             }
@@ -236,7 +245,7 @@ function main() {
 
         var modeName;
         for (modeName in modes) {
-            var mode = modes[modeName];
+            mode = modes[modeName];
 
             var containerEl = document.createElement('span');
             containerEl.id = 'ltc-container-' + modeName;
@@ -279,7 +288,7 @@ function main() {
                 countEl.className = 'ltc-count';
                 countEl.appendChild(document.createTextNode(count));
                 countEl.addEventListener("click", function (ev) {
-                    setViewModeForNew(ev.target.hash.replace('#ltc-', ''));
+                    ev.target.hash.replace('#ltc-', '');
                     return false;
                 }, false);
 
@@ -294,34 +303,6 @@ function main() {
         }
 
         insertAfter(gc('b-comments_controls')[0], panelEl);
-    };
-
-    var appendAuthorsSearchLink = function () {
-
-        for (var i = 0; i < commentsLength; i++) {
-            var commentEl = comments[i];
-            var comment = parseComment(comments[i]);
-
-            var answerEl = commentEl.getElementsByClassName('c_answer')[0];
-
-            var findAuthorEl = document.createElement('span');
-            findAuthorEl.textContent = 'коментарии';
-            findAuthorEl.style.borderBottom = '1px solid';
-            findAuthorEl.style.marginLeft = '5px';
-            findAuthorEl.style.marginRight = '5px';
-            findAuthorEl.style.cursor = 'pointer';
-            findAuthorEl.setAttribute('data-author', comment.author);
-
-            findAuthorEl.addEventListener("click", function (ev) {
-                document.getElementById('ltc-author-name').value = ev.target.getAttribute('data-author');
-                setViewMode('author');
-                return false;
-            }, false);
-
-            insertAfter(answerEl, findAuthorEl);
-
-            findAuthorEl = null;
-        }
     };
 
     var resetPanel = function () {
@@ -343,9 +324,6 @@ function main() {
                 countEl.style.background = '#EEE';
             }
         }
-    };
-
-    var setViewModeForNew = function (key) {
     };
 
     var getViewMode = function () {
@@ -415,7 +393,6 @@ function main() {
     commentsLength = comments.length;
 
     createPanel();
-    appendAuthorsSearchLink();
 
     if ( hashRegex.test(location.hash) ) {
 
@@ -431,6 +408,13 @@ function main() {
     } else {
         setViewMode(defaultMode);
     }
+
+    document.body.addEventListener('click', function(ev){
+        if (ev.target.className === 'c_show_user') {
+            document.getElementById('ltc-author-name').value = ev.target.parentNode.parentNode.parentNode.parentNode.getAttribute('data-author');
+            setViewMode('author')
+        }
+    });
 
 }
 
