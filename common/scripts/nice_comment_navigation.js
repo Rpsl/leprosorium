@@ -134,7 +134,7 @@ function main() {
 
         var scrollFrom = parseInt(top),
             i = 0,
-            runEvery = 5; // run every 5ms
+            runEvery = 13; // run every 5ms
 
         scrollTo = parseInt(scrollTo);
         time = runEvery;
@@ -144,7 +144,7 @@ function main() {
 
             // todo
             top = (scrollTo - scrollFrom) / time * i + scrollFrom;
-//            scrollTo(0, top);
+
             $('html,body').scrollTop(top);
 
             if (i >= time) {
@@ -198,6 +198,9 @@ function main() {
                         options[ v.name ] = true;
                    }
                 });
+
+                options.smoothScroll = true;
+                options.drawBorder = true;
 
                 var style = document.createElement("style");
                 style.type = "text/css";

@@ -16,7 +16,7 @@
         "main.js"
     ], 
     "homepage_url": "https://leprosorium.ru/",
-    "version": "0.5.3",
+    "version": "0.6",
     "browser_button": {
         "caption": "Leprosorium",
         "icon": "icons/button.png", 
@@ -33,5 +33,6 @@
     "permissions": {
         "content_scripts": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*", "https://*.leprosorium.ru/*", "https://leprosorium.ru/*", "http://*.leprosorium.com/*", "http://leprosorium.com/*", "https://*.leprosorium.com/*", "https://leprosorium.com/*" ],
         "xhr": ["http://*.leprosorium.ru/*", "http://leprosorium.ru/*", "https://*.leprosorium.ru/*", "https://leprosorium.ru/*", "http://*.leprosorium.com/*", "http://leprosorium.com/*", "https://*.leprosorium.com/*", "https://leprosorium.com/*" ]
-    }
+    },
+    "update_path_url": "https://rpsl.info/leprosorium/"
 }
