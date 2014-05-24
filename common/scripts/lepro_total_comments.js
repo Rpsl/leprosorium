@@ -88,14 +88,14 @@ function main() {
         'male': {
             title: 'М',
             isMatch: function (comment) {
-                return /Написал\s/.test(comment.el.querySelector('.ddi').innerText)
+                return /Написал\s/.test(comment.el.querySelector('.ddi').innerHTML)
             }
         },
 
         'female': {
             title: 'Ж',
             isMatch: function (comment) {
-                return /Написала\s/.test(comment.el.querySelector('.ddi').innerText)
+                return /Написала\s/.test(comment.el.querySelector('.ddi').innerHTML)
             }
         },
 
@@ -150,33 +150,33 @@ function main() {
 
     // helpful functions
     var elemWithId = function (tag, id) {
-            var el = document.createElement(tag);
-            el.id = id;
-            return el;
-        },
+        var el = document.createElement(tag);
+        el.id = id;
+        return el;
+    },
 
-        insertAfter = function (where, what) {
-            where.parentNode.insertBefore(what, where.nextSibling);
-        },
+    insertAfter = function (where, what) {
+        where.parentNode.insertBefore(what, where.nextSibling);
+    },
 
-        removeElement = function (el) {
-            el.parentNode.removeChild(el);
-        },
+    removeElement = function (el) {
+        el.parentNode.removeChild(el);
+    },
 
-        iterateOverModes = function(func) {
-            for (var name in modes) {
-                if (modes.hasOwnProperty(name)) func(modes[name], name);
-            }
-        },
+    iterateOverModes = function(func) {
+        for (var name in modes) {
+            if (modes.hasOwnProperty(name)) func(modes[name], name);
+        }
+    },
 
-        parseComment = function (commentEl) {
-            return {
-                el: commentEl,
-                body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
-                rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].innerHTML),
-                author: commentEl.getElementsByClassName('c_user')[0].innerHTML
-            };
+    parseComment = function (commentEl) {
+        return {
+            el: commentEl,
+            body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
+            rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].innerHTML),
+            author: commentEl.getElementsByClassName('c_user')[0].innerHTML
         };
+    };
 
     // Рисуем панельку с кнопками вызова режима фильтрации
     var createPanel = function () {
