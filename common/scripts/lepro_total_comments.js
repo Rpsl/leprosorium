@@ -366,7 +366,7 @@ function main() {
         var parent = obj.getAttribute('data-parent_comment_id');
 
         if( parent !== null ) {
-            showparent( parent );
+            showParent( parent );
         }
     };
 
