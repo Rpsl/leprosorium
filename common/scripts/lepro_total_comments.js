@@ -18,7 +18,8 @@ function main() {
         hashPrefix = 'ltc-',
         hashRegex = new RegExp(hashPrefix),
         standard_deviation = 0,
-        style, panelEl, comments, commentsLength, mode, authors = {};
+        style, panelEl, comments, commentsLength, mode, authors = {},
+        parent = [];
 
     var modes = {
 
@@ -29,7 +30,17 @@ function main() {
 
         'new': {
             title: 'новые',
-            isMatch: function (comment) { return comment.el.classList.contains('new'); }
+            isMatch: function (comment) {
+
+                // craphack. По хорошему нужно в comments собирать массив по id комментария { comment_id: element }
+                var value = comment.el.classList.contains('new');
+
+                if( value && comment.el.getAttribute('data-parent_comment_id') !== null )
+                {
+                    parent.push( comment.el.getAttribute('data-parent_comment_id') );
+                }
+                return value;
+            }
         },
 
         'image': {
@@ -93,11 +104,11 @@ function main() {
             render: function (containerEl) {
                 var author, dataList, authorEl,
                     filterByAuthor = function () {
-                    var author = document.getElementById('ltc-author-name').value;
-                    if (author.length < 0) return;
+                        var author = document.getElementById('ltc-author-name').value;
+                        if (author.length < 0) return;
 
-                    setViewMode('author');
-                };
+                        setViewMode('author');
+                    };
 
                 authorEl = elemWithId('input', 'ltc-author-name');
 
@@ -139,7 +150,7 @@ function main() {
 
     // helpful functions
     var elemWithId = function (tag, id) {
-        var el = document.createElement(tag);
+            var el = document.createElement(tag);
             el.id = id;
             return el;
         },
@@ -159,13 +170,13 @@ function main() {
         },
 
         parseComment = function (commentEl) {
-        return {
-            el: commentEl,
-            body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
-            rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].innerHTML),
-            author: commentEl.getElementsByClassName('c_user')[0].innerHTML
+            return {
+                el: commentEl,
+                body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
+                rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].innerHTML),
+                author: commentEl.getElementsByClassName('c_user')[0].innerHTML
+            };
         };
-    };
 
     // Рисуем панельку с кнопками вызова режима фильтрации
     var createPanel = function () {
@@ -303,11 +314,17 @@ function main() {
 
         if (modeName == 'author') {
             var authorValue = document.getElementById('ltc-author-name').value;
-            location.hash = '#ltc-author-' + authorValue;
-        }
-        else {
-            if (modeName !== defaultMode) location.hash = '#ltc-' + modeName;
-            else if (modeName === defaultMode) location.hash = '';
+//            location.hash = '#ltc-author-' + authorValue;
+            storeMode('#ltc-author-' + authorValue);
+        } else {
+//            if (modeName !== defaultMode) location.hash = '#ltc-' + modeName;
+//            else if (modeName === defaultMode) location.hash = '';
+
+            if (modeName !== defaultMode) {
+                storeMode('#ltc-' + modeName)
+            }else if (modeName === defaultMode){
+                storeMode('')
+            }
         }
 
         containerEl.classList.add('selected');
@@ -318,10 +335,43 @@ function main() {
         var countEl = containerEl.getElementsByClassName('ltc-count')[0];
         if (countEl) countEl.classList.add('selected');
 
-        for (var i = 0; i < commentsLength; i++) {
-            if ( !mode.isMatch(parseComment(comments[i])) ) comments[i].style.display = 'none';
-            else comments[i].style.display = 'block';
+        parent = [];
+
+        for (var i = 0; i < commentsLength; i++)
+        {
+            if (!mode.isMatch(parseComment(comments[i]))) {
+                comments[i].style.display = 'none';
+            }
+            else
+            {
+                comments[i].style.display = 'block';
+            }
         }
+
+        if( parent.length > 0 )
+        {
+            for( var p in parent )
+            {
+                showParent(parent[p]);
+            }
+
+            parent = [];
+        }
+    };
+
+    var showParent = function( id ) {
+        var obj = document.getElementById( id);
+        obj.style.display = 'block';
+
+        var parent = obj.getAttribute('data-parent_comment_id');
+
+        if( parent !== null ) {
+            showparent( parent );
+        }
+    };
+
+    var storeMode = function( mode ) {
+        kango.invokeAsync('kango.storage.setItem', 'total::mode', mode );
     };
 
     /* Start script execution */
@@ -333,20 +383,23 @@ function main() {
 
     createPanel();
 
-    if ( hashRegex.test(location.hash) ) {
+    kango.invokeAsync('kango.storage.getItem', 'total::mode', function(value){
+        if ( hashRegex.test(value) ) {
 
-        mode = location.hash.replace('#' + hashPrefix, '');
+            mode = value.replace('#' + hashPrefix, '');
 
-        if (mode.search('author-') === 0) {
-            document.getElementById('ltc-author-name').value = mode.replace('author-', '');
-            setViewMode('author');
+            if (mode.search('author-') === 0) {
+                document.getElementById('ltc-author-name').value = mode.replace('author-', '');
+                setViewMode('author');
+            }
+            else {
+                setViewMode(mode);
+            }
+        } else {
+            setViewMode(defaultMode);
         }
-        else {
-            setViewMode(mode);
-        }
-    } else {
-        setViewMode(defaultMode);
-    }
+
+    });
 
     document.body.addEventListener('click', function(ev) {
 
@@ -369,7 +422,7 @@ function main() {
     style.innerHTML = ".ltc-panel { width: 95%; background: #F5F5F5; padding: 5px 10px; margin: -30px 0 25px 0 } \
                         .ltc-container > span { cursor: pointer; color: #888; border-bottom: 1px dotted; text-decoration: none } \
                         .ltc-count { margin-left: 3px; background: #EEE; padding: 4px; border-radius: 5px; font: 10px Verdana } \
-                        #ltc-author-name { width: 100px; margin-left: 5px; padding: 3px; font: 11px Verdata  } \
+                        #ltc-author-name { width: 100px; margin-left: 5px; padding: 3px; } \
                         .ltc-mode.selected { color: #000; border-bottom: none} \
                         .ltc-count.selected { background: #DFDFDF }";
 
