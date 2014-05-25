@@ -199,7 +199,7 @@ function main() {
                    }
                 });
 
-                options.smoothScroll = true;
+                options.smoothScroll = false;
                 options.drawBorder = true;
 
                 var style = document.createElement("style");
