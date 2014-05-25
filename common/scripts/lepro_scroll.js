@@ -10,10 +10,6 @@
 
 function main(){
 
-    $('#js-content_aside_subsite').css({
-//        'background-color': 'white',
-        'z-index': -1
-    });
 
     var scroll = $('<div>&nbsp;</div>',{ 'id': 'scroll_to_top', onclick: "scroll(0,0);return false;"}).css({
             'background-color': "#f8f8f8",
