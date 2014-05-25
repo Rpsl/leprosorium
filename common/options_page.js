@@ -1,38 +1,73 @@
 KangoAPI.onReady(function() {
 
-    var main_click = Options.getMainClick();
+    var on_bage_obj = jQuery('#show_on_bage');
 
-    jQuery('#on_button_click option').removeAttr('selected');
-    jQuery('#on_button_click option[value="'+ main_click+'"]').attr('selected', 'selected');
+    kango.invokeAsync('kango.storage.getItem', 'main::badge', function(value){
 
-    jQuery('#on_button_click').on('change', function() {
-        Options.setMainClick( parseInt( jQuery('#on_button_click option:selected').val() ));
+        if (value == undefined) {
+            value = 0;
+        }
+
+        jQuery(on_bage_obj).find('option').removeAttr('selected');
+        jQuery(on_bage_obj).find('option[value="'+ value +'"]').attr('selected', 'selected');
+
     });
 
-    var on_badge = Options.getOnBadge();
 
-    jQuery('#show_on_bage option').removeAttr('selected');
-    jQuery('#show_on_bage option[value="'+ on_badge+'"]').attr('selected', 'selected');
+    jQuery(on_bage_obj).on('change', function() {
 
-    jQuery('#show_on_bage').on('change', function() {
-        Options.setOnBadge( parseInt( jQuery('#show_on_bage option:selected').val() ));
+        var value = parseInt( jQuery(on_bage_obj).find('option:selected').val() )
+
+        if (value !== 0 && value !== 1 && value !== 2 && value !== 3 && value !== 4 && value !== 5 && value !== 6) {
+            value = 0;
+        }
+
+        kango.invokeAsync('kango.storage.setItem', 'main::badge', value );
         kango.dispatchMessage('refresh', true);
     });
 
+
+
+
     jQuery('input.plugin').on('change', function(){
-        Options.setPlugin(jQuery(this).attr('id'), jQuery(this).is(':checked'));
+
+        var name = jQuery(this).attr('id');
+        var onoff = jQuery(this).is(':checked');
+
+        kango.invokeAsync('kango.storage.getItem', 'plugins', function(settings){
+
+            if (onoff) {
+                onoff = 1;
+            } else {
+                onoff = 0;
+            }
+
+            if (settings == undefined || settings == null) {
+                settings = {};
+            }
+
+            settings[name] = onoff;
+
+            kango.invokeAsync('kango.storage.setItem', 'plugins', settings );
+        });
+
     });
 
-    var plugins = Options.getPlugins();
+    kango.invokeAsync('kango.storage.getItem', 'plugins', function(settings){
 
-    for( var key in plugins ) {
-
-        if( plugins[key] ) {
-            jQuery('#' + key).attr('checked', 'checked' );
-        } else {
-            jQuery('#' + key).removeAttr('checked' );
+        if (settings == undefined || settings == null) {
+            settings = {};
         }
-    };
+
+        for( var key in settings ) {
+
+            if( settings[key] ) {
+                jQuery('#' + key).attr('checked', 'checked' );
+            } else {
+                jQuery('#' + key).removeAttr('checked' );
+            }
+        }
+    });
 
     jQuery('.settings-block input[type="checkbox"]').on('change', function(e){
 

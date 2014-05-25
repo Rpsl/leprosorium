@@ -100,6 +100,10 @@
         jQuery('#tr_inbox').on('click', function(){
             kango.browser.tabs.create({url: 'http://leprosorium.ru/my/inbox/'});
         });
+
+        jQuery('.settings').on('click', function(){
+            kango.ui.optionsPage.open();
+        });
     }
 
 
