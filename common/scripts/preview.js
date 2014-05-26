@@ -72,7 +72,7 @@ function main(){
 
                 if (asylum) {
                     preview = document.createElement('tr');
-                    preview.innerHTML = '<td colspan="3"><div style="margin-top:20px;" class="lp_preview"></div></td>';
+                    preview.innerHTML = '<td colspan="3"><div style="margin-top:20px;  max-height: 400px; overflow: auto;" class="lp_preview"></div></td>';
                     //                toolbar.parentNode.parentNode.insertBefore(preview, toolbar.parentNode);
                     $(toolbar).parent().parent().append(preview);
                 }
@@ -81,7 +81,7 @@ function main(){
 
                     preview = document.createElement('div');
                     preview.className = "lp_preview";
-                    preview.setAttribute('style', "margin-top: 20px;");
+                    preview.setAttribute('style', "margin-top: 20px;  max-height: 400px; overflow: auto;");
 
                     $(toolbar).parent().after(preview);
                 }
@@ -89,7 +89,7 @@ function main(){
                 {
                     preview = document.createElement('div');
                     preview.className = "lp_preview";
-                    preview.setAttribute('style', "margin-top: 20px;");
+                    preview.setAttribute('style', "margin-top: 20px; max-height: 400px; overflow: auto;");
 
                     $(toolbar).parent().after(preview);
                 }
@@ -101,10 +101,12 @@ function main(){
 
         $('.textarea_preview').on('click', function(e){
 
+            var value = null;
+
             if( asylum ) {
-                var value = $(this).parent().parent().parent().find('textarea').val();
+                value = $(this).parent().parent().parent().find('textarea').val();
             } else {
-                var value = $(this).parent().parent().find('textarea').val();
+                value = $(this).parent().parent().find('textarea').val();
             }
 
 
