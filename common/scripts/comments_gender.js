@@ -18,7 +18,7 @@ function comments_gender() {
 
     for (var i = 0, len = comments.length; i < len; i++) {
         comment = comments[i];
-        if (/^\s*Написала/.test(comment.innerText)) {
+        if (/^\s*Написала/.test(comment.textContent)) {
             comment.querySelector('.c_user').classList.add('gender_female');
         } else {
             comment.querySelector('.c_user').classList.add('gender_male');
