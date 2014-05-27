@@ -8,14 +8,14 @@ Leprosorium++ extension for Google Chrome, Mozilla Firefox and Safari
 
 Установка
 ===========
-* [Google Chrome](https://chrome.google.com/webstore/detail/leprosorium%20%20/cmoaeoopgbabkeljpdoocejcjnednikb?utm_source=chrome-ntp-icon) ставьте расшриение из магазина.
+* [Google Chrome](https://chrome.google.com/webstore/detail/leprosorium%20%20/cmoaeoopgbabkeljpdoocejcjnednikb?utm_source=chrome-ntp-icon) ставьте расширение из магазина.
 * [Mozilla Firefox](https://github.com/Rpsl/leprosorium/raw/master/__COMPILED_EXTENSIONS/leprosorium_0.6.3.xpi) после скачивания файла перетяните его на страницу "дополнения" в FF.
 * [Safari](https://github.com/Rpsl/leprosorium/raw/master/__COMPILED_EXTENSIONS/leprosorium_0.6.3.safariextz) после скачивания кликайте два раза на файл.
 
 Для разработчиков
 ===========
 
-Приложение основано на фреймворке [Kango](http://kangoextensions.com/), от леперов между прочим.
+Приложение основано на фреймворке [Kango](http://kangoextensions.com/), от леперов, между прочим.
 
 При сборке стандартным Kango, в FF могут возникать проблемы в виде кривого отображения попап окна. Это нормально, для сборки продакшен версии я использую чуть-чуть модифицированные сорцы компилятора.
 
