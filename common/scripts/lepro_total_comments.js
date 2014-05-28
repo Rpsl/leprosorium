@@ -88,14 +88,14 @@ function main() {
         'male': {
             title: 'М',
             isMatch: function (comment) {
-                return /Написал\s/.test(comment.el.querySelector('.ddi').innerHTML)
+                return /Написал\s/.test(comment.el.querySelector('.ddi').textContent)
             }
         },
 
         'female': {
             title: 'Ж',
             isMatch: function (comment) {
-                return /Написала\s/.test(comment.el.querySelector('.ddi').innerHTML)
+                return /Написала\s/.test(comment.el.querySelector('.ddi').textContent)
             }
         },
 
@@ -172,9 +172,9 @@ function main() {
     parseComment = function (commentEl) {
         return {
             el: commentEl,
-            body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
-            rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].innerHTML),
-            author: commentEl.getElementsByClassName('c_user')[0].innerHTML
+            body: commentEl.getElementsByClassName('c_body')[0].textContent,
+            rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].textContent),
+            author: commentEl.getElementsByClassName('c_user')[0].textContent
         };
     };
 
