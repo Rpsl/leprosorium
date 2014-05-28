@@ -63,7 +63,12 @@
         <div>
             <p><label>Раскрашивать рейтинг комментариев<input class="plugin" type="checkbox" id="commentsratings" name="commentsratings" value="1"/></label></p>
             <p><label>YouTube видео вместо ссылок<input class="plugin" type="checkbox" id="youtubelinks" name="youtubelinks" value="1"/></label></p>
-            <p><label>TotalComments (by <a href="http://leprosorium.ru/users/pomapoma" target="_blank">pomapoma</a>) <input class="plugin" type="checkbox" id="totalcomments" name="totalcomments" value="1"/></label></p>
+            <p>
+                <a href="#" data-settings-block="totalcomments_sett" class="settings">TotalComments</a><input class="plugin" type="checkbox" id="totalcomments" name="totalcomments" value="1"/>
+                <div class="settings-block" id="totalcomments_sett">
+                    <div><label><input class="plugin" type="checkbox" name="hideparent"/>При показе новых комментариев не показывать ветку</label></div>
+                </div>
+            </p>
             <p>
                 <a href="#" data-settings-block="nice_comments" class="settings">Nice Comments Navigation (by ??)</a> <input class="plugin" type="checkbox" id="nicecomments" name="nicecomments" value="1"/>
                 <div class="settings-block" id="nice_comments">
@@ -76,7 +81,7 @@
             <p><label>Предпросмотр комментов <input class="plugin" type="checkbox" id="preview" name="preview" value="1"/></label></p>
             <p><label>Номера пользователей <input class="plugin" type="checkbox" id="usernumber" name="usernumber" value="1"/></label></p>
             <p><label>Половая принадлежность пользователей (by <a href="http://leprosorium.ru/users/barbie" target="_blank">barbie</a>) <input class="plugin" type="checkbox" id="commentsgender" name="commentsgender" value="1"/></label></p>
-            <p><label>Полоска "наверх" (by <a href="http://leprosorium.ru/users/boris_s" target="_blank">boris_s</a>)<input class="plugin" type="checkbox" id="leproscroll" name="leproscroll" value="1"/></label></p>
+            <p><label>Полоска "наверх"<input class="plugin" type="checkbox" id="leproscroll" name="leproscroll" value="1"/></label></p>
             <p><label>Двоеточие в ответах (by <a href="http://leprosorium.ru/users/ste-art" target="_blank">ste-art</a>) <input class="plugin" type="checkbox" id="commatocolon" name="commatocolon" value="1"/></label></p>
         </div>
     </fieldset>

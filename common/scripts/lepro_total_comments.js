@@ -11,7 +11,7 @@
 // ==/UserScript==
 
 
-function main() {
+function main( pl_options ) {
 
     var pluginId = 'lepro-total-comments-v2',
         defaultMode = 'all',
@@ -35,7 +35,7 @@ function main() {
                 // craphack. По хорошему нужно в comments собирать массив по id комментария { comment_id: element }
                 var value = comment.el.classList.contains('new');
 
-                if( value && comment.el.getAttribute('data-parent_comment_id') !== null )
+                if( !pl_options.hideparent && value && comment.el.getAttribute('data-parent_comment_id') !== null )
                 {
                     parent.push( comment.el.getAttribute('data-parent_comment_id') );
                 }
@@ -436,6 +436,20 @@ kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
 
     if( value !== null && value.hasOwnProperty( name ) && value[ name ] == 1 )
     {
-        main();
+        kango.invokeAsync('kango.storage.getItem', 'totalcomments_sett', function(value) {
+
+            var options = {
+                hideparent: false
+            };
+
+            $.each(value, function (k, v) {
+                if (v.value == "on") {
+                    options[ v.name ] = true;
+                }
+            });
+
+            main( options );
+        });
+
     }
 });
