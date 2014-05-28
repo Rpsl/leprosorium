@@ -21,7 +21,7 @@ Leprosorium++ extension for Google Chrome, Mozilla Firefox and Safari
 
 Для интеграции различных юзерскриптов нужно добавить их в папку [./common/scripts](https://github.com/Rpsl/leprosorium/tree/master/common/scripts) и поправить формат автозапуска по шаблону:
 
-```
+```javascript
 // ==UserScript==
 // @name		%script name%
 // @namespace	leprosorium++youtubelinks <--- Очень важно указать свой namespace
@@ -48,7 +48,7 @@ kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
 ```
 После этого нужно отредактировать файл options.html, добавив в него пункт про включение юзерскрипта.
 
-```
+```html
 <p>Plugin name (by %username link%) <input class="plugin" type="checkbox" id="mypluginname" name="mypluginname" value="1"/></p>
 
 ```
