@@ -719,7 +719,7 @@ function main() {
                 [853, 480]
             ],
             embed: function (vid, t) {
-                return 'http://coub.com/embed/' + vid + '?muted=false&autostart=true&noSiteButtons=true';
+                return 'https://coub.com/embed/' + vid + '?muted=false&autostart=true&noSiteButtons=true';
             },
             url: function (vid, t) {
                 return 'http://coub.com/view/' + vid;
