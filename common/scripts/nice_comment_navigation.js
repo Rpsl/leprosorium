@@ -193,6 +193,10 @@ function main() {
 
             kango.invokeAsync('kango.storage.getItem', 'nice_comments', function(value) {
 
+                if( value == null ) {
+                    value = [];
+                }
+
                 $.each(value, function(k,v){
                    if( v.value == "on" ) {
                         options[ v.name ] = true;
