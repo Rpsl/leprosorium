@@ -11,7 +11,9 @@
         "scripts/comma_to_colon.js",
         "scripts/comments_gender.js",
         "scripts/inline_userinfo.js",
-        "scripts/youtube_button.js"
+        "scripts/youtube_button.js",
+        "scripts/lepro_titles.js"
+
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",

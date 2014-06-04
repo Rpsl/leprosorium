@@ -442,6 +442,10 @@ kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
                 hideparent: false
             };
 
+            if( value == undefined ){
+                value = [];
+            }
+
             $.each(value, function (k, v) {
                 if (v.value == "on") {
                     options[ v.name ] = true;
