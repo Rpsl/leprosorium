@@ -1,18 +1,19 @@
 {
     "content_scripts": [
+        "scripts/lepro_titles.js",
+        "scripts/remove_comments_borders.js",
         "scripts/comments_ratings_colors.js",
         "scripts/lepro_scroll.js",
-        "scripts/lepro_total_comments.js",
-        "scripts/nice_comment_navigation.js",
         "scripts/preview.js",
-        "scripts/remove_comments_borders.js",
         "scripts/user_numbers.js",
         "scripts/youtube_link_convert.js",
         "scripts/comma_to_colon.js",
         "scripts/comments_gender.js",
         "scripts/inline_userinfo.js",
         "scripts/youtube_button.js",
-        "scripts/lepro_titles.js"
+        "scripts/lepro_total_comments.js",
+        "scripts/nice_comment_navigation.js"
+
 
     ],
     "description": "Leprosorium++",

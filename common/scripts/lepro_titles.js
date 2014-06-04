@@ -183,7 +183,7 @@ function main() {
             {
                 newtitle = pots[j].childNodes[0].innerHTML.toLowerCase();
             } else if (pots[j].innerHTML.indexOf('<br>') != -1 && pots[j].innerHTML.indexOf('<br>') < length_title) {
-                newtitle = pots[j].innerHTML.split('<br>')[0].toLowerCase();
+                newtitle = pots[j].innerHTML.split('<br>')[0].toLowerCase().replace(/<\/?[^>]+>/gi, '');
             } else {
                 newtitle = pots[j].textContent.toLowerCase(); //если их нет, то просто возьмем, что есть
             }
