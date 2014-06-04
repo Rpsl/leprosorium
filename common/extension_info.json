@@ -10,7 +10,8 @@
         "scripts/youtube_link_convert.js",
         "scripts/comma_to_colon.js",
         "scripts/comments_gender.js",
-        "scripts/inline_userinfo.js"
+        "scripts/inline_userinfo.js",
+        "scripts/youtube_button.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",

@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name		Leprosorium comments preview
-// @namespace	leprosorium++preview
+// @name		Leprosorium youtube button
+// @namespace	leprosorium++youtubebutton
 // @author	    Rpsl
 // @include		*.leprosorium.ru/*
 // @include		*leprosorium.ru/*
@@ -11,7 +11,17 @@
 
 function main(){
 
-    function initPreview()
+    function youtube_parser(url){
+        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+        var match = url.match(regExp);
+        if (match&&match[7].length==11){
+            return match[7];
+        }else{
+            return false;
+        }
+    }
+
+    function initYouTubeButton()
     {
         var textarea = false;
         var toolbar = false;
@@ -58,7 +68,7 @@ function main(){
                 toolbar = $( textarea).parent().parent().find('.b-textarea_editor');
             }
 
-            var check = $(toolbar).find('a.textarea_preview');
+            var check = $(toolbar).find('a.insert_youtube');
 
             if( check.length == 0 ) {
 
@@ -66,57 +76,45 @@ function main(){
                 d.setAttribute('style', "padding-left: 20px");
                 var preview = document.createElement(window.location.href.indexOf("asylum") != -1 ? 'tr' : 'div');
 
-                d.innerHTML = "<b>Предпросмотр<b>";
+                d.innerHTML = "<b>YouTube<b>";
                 d.href = "#";
-                d.className = "b-textarea_editor_button b-textarea_editor_link textarea_preview";
-
-                if (asylum) {
-                    preview = document.createElement('tr');
-                    preview.innerHTML = '<td colspan="3"><div style="margin-top:20px;  max-height: 400px; overflow: auto;" class="lp_preview"></div></td>';
-                    //                toolbar.parentNode.parentNode.insertBefore(preview, toolbar.parentNode);
-                    $(toolbar).parent().parent().append(preview);
-                }
-                else if ( inbox )
-                {
-
-                    preview = document.createElement('div');
-                    preview.className = "lp_preview";
-                    preview.setAttribute('style', "margin-top: 20px;  max-height: 400px; overflow: auto;");
-
-                    $(toolbar).parent().after(preview);
-                }
-                else
-                {
-                    preview = document.createElement('div');
-                    preview.className = "lp_preview";
-                    preview.setAttribute('style', "margin-top: 20px; max-height: 400px; overflow: auto;");
-
-                    $(toolbar).parent().after(preview);
-                }
+                d.className = "b-textarea_editor_button b-textarea_editor_link insert_youtube";
 
                 $(toolbar).append(d);
             }
 
         });
 
-        $('.textarea_preview').off('click');
-        $('.textarea_preview').on('click', function(e){
+        $('.insert_youtube').off('click');
+        $('.insert_youtube').on('click', function(e){
 
-            var value = null;
 
-            if( asylum ) {
-                value = $(this).parent().parent().parent().find('textarea').val();
-            } else {
-                value = $(this).parent().parent().find('textarea').val();
+            var input = window.prompt("Ссылка на страницу YouTube","");
+
+            if( input !== null ) {
+                var id = youtube_parser( input ) ;
+
+                if( id != false ) {
+                    var template = '\n<a href="http://youtube.com/watch?v='+id+'"><img src="http://img.youtube.com/vi/'+id+'/hqdefault.jpg"></a>\n';
+
+                    var text_form = undefined;
+
+                    if( asylum ) {
+                        text_form = $(this).parent().parent().parent().find('textarea');
+                    } else {
+                        text_form = $(this).parent().parent().find('textarea');
+                    }
+
+                    if( text_form != undefined ) {
+                        var value = $(text_form).val();
+
+                        value += template;
+
+                        $(text_form).val(value);
+                    }
+
+                }
             }
-
-
-            value = value
-                .replace(/<irony>/g, '<span class=irony>')
-                .replace(/<\/irony>/g, '</span>')
-                .replace(/\n/g, '<br />');
-
-            $(this).parent().parent().parent().find('.lp_preview').html( value );
 
             e.stopPropagation();
             e.preventDefault();
@@ -126,17 +124,17 @@ function main(){
     }
 
     $('.c_answer').on('click',function(){
-        initPreview();
+        initYouTubeButton();
     });
 
-    initPreview();
+    initYouTubeButton();
 }
 
 
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
 
-    var name = 'preview';
+    var name = 'youtubebutton';
 
     if( value !== null && value.hasOwnProperty( name ) && value[ name ] == 1 )
     {
