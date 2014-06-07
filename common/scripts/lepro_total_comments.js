@@ -11,7 +11,7 @@
 // ==/UserScript==
 
 
-function main() {
+function main( pl_options ) {
 
     var pluginId = 'lepro-total-comments-v2',
         defaultMode = 'all',
@@ -35,7 +35,7 @@ function main() {
                 // craphack. По хорошему нужно в comments собирать массив по id комментария { comment_id: element }
                 var value = comment.el.classList.contains('new');
 
-                if( value && comment.el.getAttribute('data-parent_comment_id') !== null )
+                if( !pl_options.hideparent && value && comment.el.getAttribute('data-parent_comment_id') !== null )
                 {
                     parent.push( comment.el.getAttribute('data-parent_comment_id') );
                 }
@@ -88,14 +88,14 @@ function main() {
         'male': {
             title: 'М',
             isMatch: function (comment) {
-                return /Написал\s/.test(comment.el.querySelector('.ddi').innerHTML)
+                return /Написал\s/.test(comment.el.querySelector('.ddi').textContent)
             }
         },
 
         'female': {
             title: 'Ж',
             isMatch: function (comment) {
-                return /Написала\s/.test(comment.el.querySelector('.ddi').innerHTML)
+                return /Написала\s/.test(comment.el.querySelector('.ddi').textContent)
             }
         },
 
@@ -172,9 +172,9 @@ function main() {
     parseComment = function (commentEl) {
         return {
             el: commentEl,
-            body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
-            rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].innerHTML),
-            author: commentEl.getElementsByClassName('c_user')[0].innerHTML
+            body: commentEl.getElementsByClassName('c_body')[0].textContent,
+            rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].textContent),
+            author: commentEl.getElementsByClassName('c_user')[0].textContent
         };
     };
 
@@ -436,6 +436,24 @@ kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
 
     if( value !== null && value.hasOwnProperty( name ) && value[ name ] == 1 )
     {
-        main();
+        kango.invokeAsync('kango.storage.getItem', 'totalcomments_sett', function(value) {
+
+            var options = {
+                hideparent: false
+            };
+
+            if( value == undefined ){
+                value = [];
+            }
+
+            $.each(value, function (k, v) {
+                if (v.value == "on") {
+                    options[ v.name ] = true;
+                }
+            });
+
+            main( options );
+        });
+
     }
 });

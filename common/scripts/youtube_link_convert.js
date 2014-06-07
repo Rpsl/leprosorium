@@ -719,9 +719,9 @@ function main() {
                 [853, 480]
             ],
             embed: function (vid, t) {
-                return 'http://coub.com/embed/' + vid + '?muted=false&autostart=true&noSiteButtons=true';
+                return 'https://coub.com/embed/' + vid + '?muted=false&autostart=true&noSiteButtons=true';
             },
-            url: function (vid, t) {
+             url: function (vid, t) {
                 return 'http://coub.com/view/' + vid;
             },
             icon: 'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAWlBMVEUAAAADM/8AIP8DMv8AK/8DMv8DMv8AMP8EMv8EMv8EM/8DMv////8UQP+Dmv9kgf/t8P/M1v/j6f8dSP96k//Z4f+Mov/Bzf8MOf+0wv87X/91j/+Yq/9rhv9szalUAAAACnRSTlMAvwjCBpSYKo/huP286QAAAHpJREFUGNNlj9sSgyAMRGkrBQ4R1Kq9//9vCiqOo+ctmWx2V2WMdd47a9RCpVm5X+f5wsatSgvNDp30QD02ItKMDzDKprmVto+hkwhWOQjyfuW7bw1OeXjKh4I/LthL+ixZnw4hhkH+YBfb0GXbX7Y9BjtFP5cr9Sn1JyOZCa2SfTdfAAAAAElFTkSuQmCC',
