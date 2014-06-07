@@ -52,3 +52,5 @@ kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
 <p>Plugin name (by %username link%) <input class="plugin" type="checkbox" id="mypluginname" name="mypluginname" value="1"/></p>
 
 ```
+
+.
