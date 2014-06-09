@@ -8,6 +8,7 @@
 // @include		*leprosorium.com/*
 // @license      MIT
 // @copyright  2014+, itspoma, barbie
+// @require         zepto.js
 // ==/UserScript==
 
 
