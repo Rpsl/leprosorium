@@ -8,6 +8,7 @@
 // @include		*leprosorium.com/*
 // @license      MIT
 // @copyright  2014+, itspoma, barbie
+// @require         zepto.js
 // ==/UserScript==
 
 
@@ -446,6 +447,8 @@ kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
                 value = [];
             }
 
+
+            // todo выпилить zepto
             $.each(value, function (k, v) {
                 if (v.value == "on") {
                     options[ v.name ] = true;
