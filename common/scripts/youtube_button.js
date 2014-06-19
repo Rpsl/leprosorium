@@ -11,6 +11,7 @@
 
 function main(){
 
+    // todo выпилить zepto
 
 
     function youtube_parser(url){
