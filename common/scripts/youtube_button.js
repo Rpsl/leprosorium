@@ -11,11 +11,15 @@
 
 function main(){
 
+
+
     function youtube_parser(url){
-        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+//        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\?.*?v?=?([^#\&\?]*).*/;
+        var regExp = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/i;
         var match = url.match(regExp);
-        if (match&&match[7].length==11){
-            return match[7];
+
+        if (match&&match[2].length==11){
+            return match[2];
         }else{
             return false;
         }
