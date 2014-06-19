@@ -302,7 +302,13 @@ function main( pl_options ) {
 
         if( modeName !== 'new' )
         {
-            document.getElementById('js-comments_no_new_comments').style.display = 'none';
+            var nocoms = document.getElementById('js-comments_no_new_comments');
+
+            if( nocoms )
+            {
+                nocoms.style.display = 'none';
+            }
+
         }
 
         var mode, selectedMode, containerEl;
