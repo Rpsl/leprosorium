@@ -10,44 +10,23 @@
 // @include 		*leprosorium.com/comments/*
 // @include 		*leprosorium.com/*
 // @include 		*leprosorium.com/users/*
-// @require     zepto.js
 // ==/UserScript==
 
 function main()
 {
-
-//    appendUserNumbers(document.getElementsByClassName("ddi"));
-//
-//
-//    // Appends user number after username in comment
-//    function appendUserNumbers(ddis) {
-//        //Adding user number
-//        for (var i = 0; i < ddis.length; i++) {
-//            var ddi = ddis[i];
-//            var cUser = ddi.getElementsByClassName("c_user")[0];
-//
-//            //User number
-//            var number = cUser.getAttribute("data-user_id");
-//
-//            //Creating new node
-//            var numberElement = document.createElement("span");
-//            numberElement.className="user_nu"
-//            numberElement.innerHTML = " " + number.toString() + ", ";
-//
-//            //Appending to the lower line of comment
-//            var jsDate = ddi.getElementsByClassName("js-date").item(0);
-//            ddi.insertBefore(numberElement, jsDate);
-//        }
-//    }
-//
-//    // If DOM changed
-//    document.addEventListener("DOMNodeInserted", makeNumbers, false);
-
     document.addEventListener("DOMNodeInserted", handleComment, false);
 
     function handleComment(event) {
 
-        var check = $(event.target).find('.ddi');
+        try
+        {
+            var check = event.target.getElementsByClassName('ddi');
+        }
+        catch (e)
+        {
+            return;
+        }
+
 
         if( check.length > 0 )
         {
@@ -60,15 +39,28 @@ function main()
 }
 
 function makeNumbers() {
-    $('.user_number').remove();
+    var ddis = document.getElementsByClassName('ddi');
 
-    $('.ddi').each(function(k,v){
-        var user_id = $(this).find('.c_user').data('user_id');
+    for( var dd in ddis )
+    {
 
-        var obj = $('<span></span>').addClass('user_number').html(' ' + user_id +', ');
+        if( ddis[dd].classList == undefined || ddis[dd].classList.contains('number') )
+        {
+            continue;
+        }
 
-        $(this).find('.js-date').before( obj );
-    });
+        ddis[dd].classList.add('number');
+
+        var c_user = ddis[dd].getElementsByClassName('c_user')[0];
+
+        var user_id = c_user.getAttribute('data-user_id');
+
+        var obj = document.createElement('span');
+            obj.className = "user_number";
+            obj.textContent = ' ' + user_id;
+
+        c_user.parentNode.insertBefore( obj, c_user.nextSibling );
+    }
 }
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){

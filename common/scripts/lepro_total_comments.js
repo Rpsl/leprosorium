@@ -173,7 +173,7 @@ function main( pl_options ) {
     parseComment = function (commentEl) {
         return {
             el: commentEl,
-            body: commentEl.getElementsByClassName('c_body')[0].textContent,
+            body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
             rating: parseInt(commentEl.getElementsByClassName('vote_result')[0].textContent),
             author: commentEl.getElementsByClassName('c_user')[0].textContent
         };
@@ -299,6 +299,17 @@ function main( pl_options ) {
     };
 
     var setViewMode = function (modeName) {
+
+        if( modeName !== 'new' )
+        {
+            var nocoms = document.getElementById('js-comments_no_new_comments');
+
+            if( nocoms )
+            {
+                nocoms.style.display = 'none';
+            }
+
+        }
 
         var mode, selectedMode, containerEl;
 
