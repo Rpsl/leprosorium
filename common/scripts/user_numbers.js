@@ -1,7 +1,6 @@
 // ==UserScript==
-// @name 		LeproUserNumbers
-// @author 		Din, al-dexter
-// @version 		2.1
+// @name 		    LeproUserNumbers
+// @author 		    Din, al-dexter, Rpsl
 // @namespace 		http://leprosorium.ru/*
 // @description   	Shows user numbers
 // @include 		*leprosorium.ru/comments/*
@@ -14,53 +13,83 @@
 
 function main()
 {
-    document.addEventListener("DOMNodeInserted", handleComment, false);
+    commentsHandler();
 
-    function handleComment(event) {
-
-        try
-        {
-            var check = event.target.getElementsByClassName('ddi');
-        }
-        catch (e)
-        {
-            return;
-        }
-
-
-        if( check.length > 0 )
-        {
-            makeNumbers();
-        }
-    }
-
-
-    makeNumbers();
+    document.addEventListener("DOMNodeInserted", mutationHandler, false);
 }
 
-function makeNumbers() {
+function commentsHandler()
+{
     var ddis = document.getElementsByClassName('ddi');
+
+    var i = 0;
 
     for( var dd in ddis )
     {
-
         if( ddis[dd].classList == undefined || ddis[dd].classList.contains('number') )
         {
             continue;
         }
 
-        ddis[dd].classList.add('number');
+        i++;
 
-        var c_user = ddis[dd].getElementsByClassName('c_user')[0];
+        number( ddis[dd] );
 
-        var user_id = c_user.getAttribute('data-user_id');
+        if( i > 100 )
+        {
+            setTimeout(commentsHandler, 1000);
 
-        var obj = document.createElement('span');
-            obj.className = "user_number";
-            obj.textContent = ' ' + user_id;
-
-        c_user.parentNode.insertBefore( obj, c_user.nextSibling );
+            return;
+        }
     }
+}
+
+
+function mutationHandler(event)
+{
+    if( event.target.nodeName !== 'SPAN' && event.target.nodeName !== 'DIV' )
+    {
+        return false;
+    }
+
+    var check = event.target.getElementsByClassName('ddi');
+
+    if( check.length > 0 )
+    {
+        for( var dd in check )
+        {
+            number( check[dd] );
+        }
+
+    }
+}
+
+
+function number( element )
+{
+    if( element.classList == undefined || element.classList.contains('number') )
+    {
+        return;
+    }
+
+    element.classList.add('number');
+
+    var c_user = element.getElementsByClassName('c_user')[0];
+
+    if( !c_user )
+    {
+        return;
+    }
+
+    var user_id = c_user.getAttribute('data-user_id');
+
+    var obj = document.createElement('span');
+        obj.className = "user_number";
+        obj.textContent = ' ' + user_id;
+
+    c_user.parentNode.insertBefore( obj, c_user.nextSibling );
+
+//    c_user.textContent = c_user.textContent + '   [' + user_id + ']';
 }
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
