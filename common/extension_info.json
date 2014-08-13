@@ -5,16 +5,14 @@
         "scripts/comments_ratings_colors.js",
         "scripts/lepro_scroll.js",
         "scripts/preview.js",
-        "scripts/user_numbers.js",
         "scripts/youtube_link_convert.js",
         "scripts/comma_to_colon.js",
         "scripts/comments_gender.js",
         "scripts/inline_userinfo.js",
         "scripts/youtube_button.js",
         "scripts/lepro_total_comments.js",
-        "scripts/nice_comment_navigation.js"
-
-
+        "scripts/nice_comment_navigation.js",
+        "scripts/user_numbers.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",
@@ -22,7 +20,7 @@
         "main.js"
     ], 
     "homepage_url": "https://leprosorium.ru/",
-    "version": "0.7.3",
+    "version": "0.7.4",
     "browser_button": {
         "caption": "Leprosorium",
         "icon": "icons/button.png", 

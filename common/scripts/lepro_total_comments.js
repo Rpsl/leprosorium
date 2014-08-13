@@ -171,6 +171,12 @@ function main( pl_options ) {
     },
 
     parseComment = function (commentEl) {
+
+        if( commentEl.getElementsByClassName('c_body')[0] )
+        {
+            return { el: commentEl, body:null, rating: 0, author: ''}
+        }
+
         return {
             el: commentEl,
             body: commentEl.getElementsByClassName('c_body')[0].innerHTML,
@@ -439,7 +445,6 @@ function main( pl_options ) {
                         .ltc-count.selected { background: #DFDFDF }";
 
     document.body.appendChild(style);
-
 }
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
