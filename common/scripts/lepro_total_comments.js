@@ -172,7 +172,7 @@ function main( pl_options ) {
 
     parseComment = function (commentEl) {
 
-        if( commentEl.getElementsByClassName('c_body')[0] )
+        if( !commentEl.getElementsByClassName('vote_result')[0] )
         {
             return { el: commentEl, body:null, rating: 0, author: ''}
         }
