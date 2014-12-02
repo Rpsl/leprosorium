@@ -9,8 +9,8 @@ Leprosorium++ extension for Google Chrome, Mozilla Firefox and Safari
 Установка
 ===========
 * [Google Chrome](https://chrome.google.com/webstore/detail/leprosorium%20%20/cmoaeoopgbabkeljpdoocejcjnednikb?utm_source=chrome-ntp-icon) ставьте расширение из магазина.
-* [Mozilla Firefox](https://github.com/Rpsl/leprosorium/raw/master/__COMPILED_EXTENSIONS/leprosorium_0.7.5.xpi) после скачивания файла перетяните его на страницу "дополнения" в FF.
-* [Safari](https://github.com/Rpsl/leprosorium/raw/master/__COMPILED_EXTENSIONS/leprosorium_0.7.5.safariextz) после скачивания кликайте два раза на файл.
+* [Mozilla Firefox](https://github.com/Rpsl/leprosorium/raw/master/__COMPILED_EXTENSIONS/leprosorium_0.7.5.1.xpi) после скачивания файла перетяните его на страницу "дополнения" в FF.
+* [Safari](https://github.com/Rpsl/leprosorium/raw/master/__COMPILED_EXTENSIONS/leprosorium_0.7.5.1.safariextz) после скачивания кликайте два раза на файл.
 
 Для разработчиков
 ===========
