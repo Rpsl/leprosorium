@@ -14,15 +14,15 @@ function main() {
 
     function drawBorder(element) {
 
-        $("#" + element.id).find('.b-comment_outline').addClass("comm_border");
+        $("#" + element.id).find('.c_i').addClass("comm_border");
     }
 
     function removeBorder(element) {
-        $("#" + element.id).find('.b-comment_outline').removeClass("comm_border");
+        $("#" + element.id).find('.c_i').removeClass("comm_border");
     }
 
     function flashColor(element) {
-        var dt = $("#" + element.id).find(".b-comment_outline");
+        var dt = $("#" + element.id).find(".c_i");
 
         if( originalColor == null ) {
             originalColor = dt.css("background-color");
