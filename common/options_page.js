@@ -27,8 +27,6 @@ KangoAPI.onReady(function() {
     });
 
 
-
-
     jQuery('input.plugin').on('change', function(){
 
         var name = jQuery(this).attr('id');

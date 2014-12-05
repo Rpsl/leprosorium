@@ -1,30 +1,5 @@
 ﻿KangoAPI.onReady(function() {
 
-
-//    var main_click = kango.storage.getItem('main::click');
-//
-//    if( main_click == 1 ) {
-//
-//        var is_opened = false;
-//
-//        kango.browser.windows.getCurrent(function (win) {
-//            win.getTabs(function (tabs) {
-//                jQuery.each(tabs, function (k, v) {
-//                    if (v.getUrl() == 'http://leprosorium.ru/') {
-//                        is_opened = true;
-//                    }
-//
-//                });
-//
-//                if (!is_opened) {
-//                    kango.invokeAsync('kango.browser.tabs.create', {url:'http://leprosorium.ru/', focused: false} );
-//
-//
-//                }
-//            });
-//        });
-//    }
-
     loadPopup();
 
     function loadPopup()
@@ -42,36 +17,35 @@
 
         kango.invokeAsync('kango.storage.getItem', cache_key, function(data) {
             // кэшируем ответ от api на две минуты
-            if (data == null || (Math.round(+new Date() / 1000) - data.time) > 60 * 2) {
-                kango.console.log('request');
-                kango.console.log(data);
+
+            // TODO
+            if (1<2||data == null || (Math.round(+new Date() / 1000) - data.time) > 60 * 2) {
 
                 kango.xhr.send(details, function (data) {
                     if (data.status == 200 && data.response != null) {
-                        // kango.console.log( data );
 
-                        var data = {
+                        var my_data = {
                             karma: data.response.karma,
+                            karmavotes: data.response.karma_votes,
                             myunreadposts: data.response.myunreadposts,
                             myunreadcomms: data.response.myunreadcomms,
                             inboxunreadposts: data.response.inboxunreadposts,
                             inboxunreadcomms: data.response.inboxunreadcomms
                         };
 
-                        setPopupData(data);
+                        setPopupData(my_data);
 
-                        kango.invokeAsync('kango.storage.setItem', cache_key, { time: Math.round(+new Date() / 1000), data: data });
+                        kango.invokeAsync('kango.storage.setItem', cache_key, { time: Math.round(+new Date() / 1000), data: my_data });
 
-                    }
-                    else {
+                    } else {
                         // shit happens
 
                         jQuery('#loading').hide();
                         jQuery('#shithappens').show();
                     }
                 });
-            }
-            else {
+
+            } else {
                 kango.console.log('from cache');
                 kango.console.log((Math.round(+new Date() / 1000) - data.time));
 
@@ -91,7 +65,27 @@
         jQuery('#loading').hide();
         jQuery('#success').show();
 
-        jQuery('#tr_karma').on('click', function(){
+        data.karmavotes = [];
+
+        var last_five = data.karmavotes.slice(Math.max(data.karmavotes.length - 5, 1)).reverse();
+
+        var karma_title = '';
+
+        jQuery(last_five).each(function(k,v){
+            karma_title += v.login +': '+v.attitude;
+
+            if( k < 4 ){
+                karma_title += '\x0A';
+            }
+        });
+
+        console.log( karma_title );
+
+        var tr_karma = jQuery('#tr_karma');
+
+        tr_karma.attr('title', karma_title);
+
+        tr_karma.on('click', function(){
             kango.browser.tabs.create({url: 'http://leprosorium.ru/'});
         });
         jQuery('#tr_sklad').on('click', function(){
@@ -104,6 +98,8 @@
         jQuery('.settings').on('click', function(){
             kango.ui.optionsPage.open();
         });
+
+        // &#013;
     }
 
 

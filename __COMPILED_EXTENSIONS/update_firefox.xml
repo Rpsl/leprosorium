@@ -5,20 +5,20 @@
 			<RDF:Seq>
 				<RDF:li>
 					<RDF:Description>
-						<em:version>0.7.5.3</em:version>
+						<em:version>0.8</em:version>
 						<em:targetApplication>
 						<RDF:Description>
 							<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 							<em:minVersion>10.0</em:minVersion>
 							<em:maxVersion>31.*</em:maxVersion>
-							<em:updateLink>https://rpsl.info/leprosorium/leprosorium_0.7.5.3.xpi</em:updateLink>
+							<em:updateLink>https://rpsl.info/leprosorium/leprosorium_0.8.xpi</em:updateLink>
 						</RDF:Description>
 						</em:targetApplication>
 					</RDF:Description>
 				</RDF:li>
 			</RDF:Seq>
 		</em:updates>
-		<em:version>0.7.5.3</em:version>
-		<em:updateLink>https://rpsl.info/leprosorium/leprosorium_0.7.5.3.xpi</em:updateLink>
+		<em:version>0.8</em:version>
+		<em:updateLink>https://rpsl.info/leprosorium/leprosorium_0.8.xpi</em:updateLink>
 	</RDF:Description>
 </RDF:RDF>
