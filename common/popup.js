@@ -18,8 +18,7 @@
         kango.invokeAsync('kango.storage.getItem', cache_key, function(data) {
             // кэшируем ответ от api на две минуты
 
-            // TODO
-            if (1<2||data == null || (Math.round(+new Date() / 1000) - data.time) > 60 * 2) {
+            if (data == null || (Math.round(+new Date() / 1000) - data.time) > 60 * 2) {
 
                 kango.xhr.send(details, function (data) {
                     if (data.status == 200 && data.response != null) {
@@ -65,8 +64,6 @@
         jQuery('#loading').hide();
         jQuery('#success').show();
 
-        data.karmavotes = [];
-
         var last_five = data.karmavotes.slice(Math.max(data.karmavotes.length - 5, 1)).reverse();
 
         var karma_title = '';
@@ -78,8 +75,6 @@
                 karma_title += '\x0A';
             }
         });
-
-        console.log( karma_title );
 
         var tr_karma = jQuery('#tr_karma');
 
@@ -98,8 +93,6 @@
         jQuery('.settings').on('click', function(){
             kango.ui.optionsPage.open();
         });
-
-        // &#013;
     }
 
 
