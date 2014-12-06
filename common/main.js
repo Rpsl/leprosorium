@@ -47,6 +47,29 @@ Lepro.prototype = {
                     string = "В инбоксах";
                     count = data.response.inboxunreadcomms;
                     break;
+                case 7:
+                    string = "Инбокс";
+                    count = 0;
+
+                    if( data.response.inboxunreadposts > 0 || data.response.inboxunreadcomms > 0)
+                    {
+                        count = data.response.inboxunreadposts + '/' +data.response.inboxunreadcomms;
+                    }
+
+                    break;
+
+                case 8:
+                    string = "Мои вещи";
+                    count = 0;
+
+                    if( data.response.myunreadposts > 0 || data.response.myunreadcomms > 0)
+                    {
+                        count = data.response.myunreadposts + '/' +data.response.myunreadcomms;
+                    }
+
+                    break;
+
+
                 default:
                     string = '';
                     count = 0;
@@ -55,7 +78,7 @@ Lepro.prototype = {
 
             var split = string + ': ' + count;
 
-            if( badge = 0 )
+            if( badge == 0 || count == 0 )
             {
                 split = ''
             }
