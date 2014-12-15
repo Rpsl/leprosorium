@@ -86,6 +86,8 @@ Lepro.prototype = {
             kango.ui.browserButton.setTooltipText( split );
             kango.ui.browserButton.setIcon('icons/button.png');
             kango.ui.browserButton.setBadgeValue(count);
+            //popup_data
+            kango.invokeAsync('kango.storage.removeItem', 'popup_data', function(data) {});
 
 
 
