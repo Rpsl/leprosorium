@@ -18,15 +18,14 @@ KangoAPI.onReady(function() {
 
         var value = parseInt( jQuery(on_bage_obj).find('option:selected').val() )
 
-        if (value !== 0 && value !== 1 && value !== 2 && value !== 3 && value !== 4 && value !== 5 && value !== 6) {
+        // этооо чтоооо хоооть такооое тоооо????
+        if (value !== 0 && value !== 1 && value !== 2 && value !== 3 && value !== 4 && value !== 5 && value !== 6 && value !== 7 && value !== 8) {
             value = 0;
         }
 
         kango.invokeAsync('kango.storage.setItem', 'main::badge', value );
         kango.dispatchMessage('refresh', true);
     });
-
-
 
 
     jQuery('input.plugin').on('change', function(){

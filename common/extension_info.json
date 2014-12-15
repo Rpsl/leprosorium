@@ -12,7 +12,8 @@
         "scripts/youtube_button.js",
         "scripts/lepro_total_comments.js",
         "scripts/nice_comment_navigation.js",
-        "scripts/user_numbers.js"
+        "scripts/user_numbers.js",
+        "scripts/dispatch_refresh.js"
     ],
     "description": "Leprosorium++",
     "creator": "Rpsl",
@@ -20,7 +21,7 @@
         "main.js"
     ], 
     "homepage_url": "https://leprosorium.ru/",
-    "version": "0.7.5.3",
+    "version": "0.8",
     "browser_button": {
         "caption": "Leprosorium",
         "icon": "icons/button.png", 

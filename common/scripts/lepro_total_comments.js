@@ -429,9 +429,11 @@ function main( pl_options ) {
         }
 
         if (className === 'c_parent') {
-            var parentId = ev.target.getAttribute('replyTo'),
+            var parentId = ev.target.parentNode.parentNode.parentNode.parentNode.getAttribute('data-parent_comment_id'),
                 parentComment = document.getElementById(parentId);
             parentComment.style.display = 'block';
+
+
         }
     });
 
