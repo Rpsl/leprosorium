@@ -23,6 +23,11 @@ function main() {
     }
 
     var vote_results = $('#js-commentsHolder').find('.vote_result');
+
+    if( vote_results.length == 0 ) {
+        vote_results = $('.b-user_posts').find('.comment .vote_result');
+    }
+
     var good_limit = 300;
 
     $.each(vote_results, function(k, v) {
