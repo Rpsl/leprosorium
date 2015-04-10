@@ -22,7 +22,7 @@ function main() {
         else return "0" + str;
     }
 
-    var vote_results = $('#js-commentsHolder').find('.vote_result');
+    var vote_results = $('#js-comments').find('.vote_result');
 
     if( vote_results.length == 0 ) {
         vote_results = $('.b-user_posts').find('.comment .vote_result');
