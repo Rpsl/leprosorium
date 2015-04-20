@@ -59,7 +59,7 @@ function main() {
             if (index === 0) {
                 break;
             }
-        } while (window.pageYOffset > $("#js-commentsHolder").offset().top && window.pageYOffset < pos - 10);
+        } while (window.pageYOffset > $("#js-comments").offset().top && window.pageYOffset < pos - 10);
         return pos - 10;
     }
 
