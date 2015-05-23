@@ -22,8 +22,6 @@ Leprosorium++ extension for Google Chrome, Mozilla Firefox and Safari
 
 Приложение основано на фреймворке [Kango](http://kangoextensions.com/), от леперов, между прочим.
 
-При сборке стандартным Kango, в FF могут возникать проблемы в виде кривого отображения попап окна. Это нормально, для сборки продакшен версии я использую чуть-чуть модифицированные сорцы компилятора.
-
 Для интеграции различных юзерскриптов нужно добавить их в папку [./common/scripts](https://github.com/Rpsl/leprosorium/tree/master/common/scripts) и поправить формат автозапуска по шаблону:
 
 ```javascript
