@@ -31,7 +31,7 @@ Leprosorium++ extension for Google Chrome, Mozilla Firefox and Safari
 // @author		%username%
 // @include		http://*.leprosorium.ru/*
 // @include		http://leprosorium.ru/*
-// @require     zepto.js // если требуется
+// @require     zepto.min.js // если требуется
 // ==/UserScript==
 
 function main() {

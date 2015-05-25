@@ -5,7 +5,7 @@
 // @include		*leprosorium.ru/*
 // @include		*.leprosorium.com/*
 // @include		*leprosorium.com/*
-// @require     zepto.js
+// @require     zepto.min.js
 // ==/UserScript==
 
 function main(){
