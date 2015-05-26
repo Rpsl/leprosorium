@@ -37,14 +37,12 @@ function main(){
         $(wrapper).append(scroll);
 
         $(document.body).on('click', '#scroll_to_top', function(e){
+            $(scroll).css('display', 'none');
             window.scrollTo(0,0);
             return false;
         });
 
-        window.onscroll = function() {
-
-            setScroll();
-        };
+        window.setInterval(setScroll, 5000);
     }
 
     function setScroll(){
