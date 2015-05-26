@@ -14,7 +14,7 @@ Lepro.prototype = {
 
     _setUnreadCount: function(data) {
 
-        kango.console.log( data );
+        //kango.console.log( data );
 
         kango.invokeAsync('kango.storage.getItem', 'main::badge', function( badge ){
 
