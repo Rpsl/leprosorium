@@ -1,6 +1,16 @@
 KangoAPI.onReady(function() {
 
+    var browser = kango.browser.getName();
+
+    // safari умеет показывать только целые числа на бейдже
+    // поэтому уберем из вариантов выбора суммарные
+    if( browser == 'safari' ) {
+        $('#sob_8').remove();
+        $('#sob_7').remove();
+    }
+
     var on_bage_obj = $('#show_on_bage');
+
 
     kango.invokeAsync('kango.storage.getItem', 'main::badge', function(value){
 
