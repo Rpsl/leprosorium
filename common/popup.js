@@ -39,8 +39,8 @@
                     } else {
                         // shit happens
 
-                        jQuery('#loading').hide();
-                        jQuery('#shithappens').show();
+                        $('#loading').hide();
+                        $('#shithappens').show();
                     }
                 });
 
@@ -56,19 +56,19 @@
 
     function setPopupData( data )
     {
-        jQuery('#karma').html( data.karma );
+        $('#karma').html( data.karma );
 
-        jQuery('#sklad').html( data.myunreadposts+'/'+ data.myunreadcomms );
-        jQuery('#inbox').html( data.inboxunreadposts +'/'+data.inboxunreadcomms  );
+        $('#sklad').html( data.myunreadposts+'/'+ data.myunreadcomms );
+        $('#inbox').html( data.inboxunreadposts +'/'+data.inboxunreadcomms  );
 
-        jQuery('#loading').hide();
-        jQuery('#success').show();
+        $('#loading').hide();
+        $('#success').show();
 
         var last_five = data.karmavotes.slice(Math.max(data.karmavotes.length - 5, 1)).reverse();
 
         var karma_title = '';
 
-        jQuery(last_five).each(function(k,v){
+        $(last_five).each(function(k,v){
             karma_title += v.login +': '+v.attitude;
 
             if( k < 4 ){
@@ -76,21 +76,21 @@
             }
         });
 
-        var tr_karma = jQuery('#tr_karma');
+        var tr_karma = $('#tr_karma');
 
         tr_karma.attr('title', karma_title);
 
         tr_karma.on('click', function(){
             kango.browser.tabs.create({url: 'http://leprosorium.ru/'});
         });
-        jQuery('#tr_sklad').on('click', function(){
+        $('#tr_sklad').on('click', function(){
             kango.browser.tabs.create({url: 'http://leprosorium.ru/my/'});
         });
-        jQuery('#tr_inbox').on('click', function(){
+        $('#tr_inbox').on('click', function(){
             kango.browser.tabs.create({url: 'http://leprosorium.ru/my/inbox/'});
         });
 
-        jQuery('.settings').on('click', function(){
+        $('.settings').on('click', function(){
             kango.ui.optionsPage.open();
         });
     }

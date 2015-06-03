@@ -14,7 +14,7 @@ Lepro.prototype = {
 
     _setUnreadCount: function(data) {
 
-        kango.console.log( data );
+        //kango.console.log( data );
 
         kango.invokeAsync('kango.storage.getItem', 'main::badge', function( badge ){
 
@@ -84,7 +84,7 @@ Lepro.prototype = {
             }
 
             kango.ui.browserButton.setTooltipText( split );
-            kango.ui.browserButton.setIcon('icons/button.png');
+            //kango.ui.browserButton.setIcon('icons/button.png');
             kango.ui.browserButton.setBadgeValue(count);
             //popup_data
             kango.invokeAsync('kango.storage.removeItem', 'popup_data', function(data) {});

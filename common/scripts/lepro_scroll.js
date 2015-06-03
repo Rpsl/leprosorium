@@ -5,13 +5,13 @@
 // @include		*leprosorium.ru/*
 // @include		*.leprosorium.com/*
 // @include		*leprosorium.com/*
-// @require     zepto.js
+// @require     zepto.min.js
 // ==/UserScript==
 
 function main(){
 
 
-    var scroll = $('<div>&nbsp;</div>',{ 'id': 'scroll_to_top', onclick: "scroll(0,0);return false;"}).css({
+    var scroll = $('<div>&nbsp;</div>',{ 'id': 'scroll_to_top'}).css({
             'background-color': "#f8f8f8",
             position: "fixed",
             width: "30px",
@@ -36,11 +36,13 @@ function main(){
 
         $(wrapper).append(scroll);
 
+        $(document.body).on('click', '#scroll_to_top', function(e){
+            $(scroll).css('display', 'none');
+            window.scrollTo(0,0);
+            return false;
+        });
 
-        window.onscroll = function() {
-
-            setScroll();
-        };
+        window.setInterval(setScroll, 5000);
     }
 
     function setScroll(){

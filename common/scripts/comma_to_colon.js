@@ -1,24 +1,29 @@
 // ==UserScript==
 // @name        comma_to_colon
 // @namespace   leprosorium++comma_to_colon
-// @author      ste-art
+// @author      Rpsl
 // @include		*.leprosorium.ru/*
 // @include		*leprosorium.ru/*
 // @include		*.leprosorium.com/*
 // @include		*leprosorium.com/*
+// @require     zepto.min.js
 // ==/UserScript==
 
 function main() {
 
-    var comma_to_colon = function() {
-        var source = window.commentForm.prototype.show.toString().replace("this.container.getElement('textarea').value = this.options.comment_user_name ? this.options.comment_user_name + ', ' : '';","this.container.getElement('textarea').value = this.options.comment_user_name ? this.options.comment_user_name + ': ' : '';");
-        eval('window.commentForm.prototype.show = ' + source);
-    };
+    $(document.body).on('click', '.c_answer', function(e){
+        var self = this;
 
-    var script = document.createElement('script'); 
-    script.type = "text/javascript"; 
-    script.innerHTML = "("+comma_to_colon.toString()+")()";
-    document.getElementsByTagName('head')[0].appendChild(script);
+        setTimeout(function(e){
+            var text = $(self).closest('.comment').find('.i-form_text_input').val();
+            var to_user = $(self).closest('.comment').find('.c_user').text();
+
+            if( text == to_user + ', ') {
+                $(self).closest('.comment').find('.i-form_text_input').val(to_user + ': ');
+            }
+        }, 50);
+    });
+
 }
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){

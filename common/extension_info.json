@@ -7,7 +7,6 @@
         "scripts/preview.js",
         "scripts/comma_to_colon.js",
         "scripts/comments_gender.js",
-        "scripts/youtube_button.js",
         "scripts/nice_comment_navigation.js",
         "scripts/user_numbers.js",
         "scripts/dispatch_refresh.js"
@@ -18,7 +17,7 @@
         "main.js"
     ], 
     "homepage_url": "https://leprosorium.ru/",
-    "version": "0.8.4",
+    "version": "0.8.5",
     "browser_button": {
         "caption": "Leprosorium",
         "icon": "icons/button.png", 

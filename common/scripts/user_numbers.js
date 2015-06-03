@@ -15,19 +15,18 @@ function main()
 {
     commentsHandler();
 
-    document.addEventListener("DOMNodeInserted", mutationHandler, false);
+    window.user_numbers_interval = null;
 }
 
 function commentsHandler()
 {
+
     var ddis = document.getElementsByClassName('ddi');
 
     var i = 0;
 
-    for( var dd in ddis )
-    {
-        if( ddis[dd].classList == undefined || ddis[dd].classList.contains('number') )
-        {
+    for( var dd in ddis ) {
+        if( ddis[dd].classList == undefined || ddis[dd].classList.contains('number') ) {
             continue;
         }
 
@@ -35,29 +34,28 @@ function commentsHandler()
 
         number( ddis[dd] );
 
-        if( i > 100 )
-        {
+        if( i > 100 ) {
             setTimeout(commentsHandler, 1000);
 
             return;
         }
     }
+
+    window.clearInterval( window.user_numbers_interval );
+    window.user_numbers_interval = setInterval(commentsHandler, 20000);
 }
 
 
 function mutationHandler(event)
 {
-    if( event.target.nodeName !== 'SPAN' && event.target.nodeName !== 'DIV' )
-    {
+    if( event.target.nodeName !== 'SPAN' && event.target.nodeName !== 'DIV' ) {
         return false;
     }
 
     var check = event.target.getElementsByClassName('ddi');
 
-    if( check.length > 0 )
-    {
-        for( var dd in check )
-        {
+    if( check.length > 0 ) {
+        for( var dd in check ) {
             number( check[dd] );
         }
 
@@ -67,8 +65,7 @@ function mutationHandler(event)
 
 function number( element )
 {
-    if( element.classList == undefined || element.classList.contains('number') )
-    {
+    if( element.classList == undefined || element.classList.contains('number') ) {
         return;
     }
 
@@ -76,8 +73,7 @@ function number( element )
 
     var c_user = element.getElementsByClassName('c_user')[0];
 
-    if( !c_user )
-    {
+    if( !c_user ) {
         return;
     }
 
@@ -85,11 +81,9 @@ function number( element )
 
     var obj = document.createElement('span');
         obj.className = "user_number";
-        obj.textContent = ' ' + user_id;
+        obj.textContent = ' [' + user_id + '] ';
 
     c_user.parentNode.insertBefore( obj, c_user.nextSibling );
-
-//    c_user.textContent = c_user.textContent + '   [' + user_id + ']';
 }
 
 kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){

@@ -9,3 +9,4 @@ __COMPILED_EXTENSIONS/firefox
 __COMPILED_EXTENSIONS/safari
 __COMPILED_EXTENSIONS/*.zip
 .idea
+common/icons/make_icons.sh
