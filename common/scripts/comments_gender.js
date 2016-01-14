@@ -11,42 +11,55 @@
 // @copyright  2014+, barbie
 // ==/UserScript==
 
+
+function main() {
+    window.user_names_gender = null;
+
+    comments_gender();
+
+    window.clearInterval(window.user_names_gender);
+    window.user_names_gender = setInterval(comments_gender, 20000);
+}
+
 function comments_gender() {
 
-    var comments = document.querySelectorAll('.ddi'),
+    var comments = document.querySelectorAll('.comment'),
         comment, style;
 
     for (var i = 0, len = comments.length; i < len; i++) {
         comment = comments[i];
 
-        if( !comment.querySelector('.c_user') )
-        {
+        var c_user = comment.querySelector('.c_user');
+
+        if (!c_user || c_user.classList.contains('gender')) {
             continue;
         }
 
-        if (/^\s*Написала/.test(comment.textContent)) {
-            comment.querySelector('.c_user').classList.add('gender_female');
-        } else {
+        var data = comment.dataset;
 
-            comment.querySelector('.c_user').classList.add('gender_male');
+        if (data.user_gender !== undefined && data.user_gender == 'female') {
+            c_user.classList.add('gender_female');
+        } else {
+            c_user.classList.add('gender_male');
         }
+
+        c_user.classList.add('gender');
     }
 
     style = document.createElement("style");
     style.type = "text/css";
-    style.innerHTML = " .gender_male { color: #3A3AC4!important } \
-                        .gender_female { color: #DD2B2B!important }";
+    style.innerHTML = " .gender_male { color: #00f!important } \
+                        .gender_female { color: #ff00ea!important }";
 
     document.body.appendChild(style);
 
 }
 
-kango.invokeAsync('kango.storage.getItem', 'plugins', function(value){
+kango.invokeAsync('kango.storage.getItem', 'plugins', function (value) {
 
     var name = 'commentsgender';
 
-    if( value !== null && value.hasOwnProperty( name ) && value[ name ] == 1 )
-    {
-        comments_gender();
+    if (value !== null && value.hasOwnProperty(name) && value[name] == 1) {
+        main();
     }
 });
