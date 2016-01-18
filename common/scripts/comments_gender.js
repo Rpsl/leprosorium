@@ -48,8 +48,8 @@ function comments_gender() {
 
     style = document.createElement("style");
     style.type = "text/css";
-    style.innerHTML = " .gender_male { color: #00f!important } \
-                        .gender_female { color: #ff00ea!important }";
+    style.innerHTML = " .gender_male { color: #3A3AC4!important } \
+                        .gender_female { color: #DD2B2B!important }";
 
     document.body.appendChild(style);
 
