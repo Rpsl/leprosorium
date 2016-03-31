@@ -5,15 +5,13 @@
     function loadPopup()
     {
         var details = {
-            url: 'http://leprosorium.ru/api/lepropanel',
+            url: 'https://leprosorium.ru/ajax/api/lepropanel',
             method: 'GET',
             async: true,
             contentType: 'json'
         };
 
         var cache_key = 'popup_data';
-
-        var self = this;
 
         kango.invokeAsync('kango.storage.getItem', cache_key, function(data) {
             // кэшируем ответ от api на две минуты
@@ -81,13 +79,13 @@
         tr_karma.attr('title', karma_title);
 
         tr_karma.on('click', function(){
-            kango.browser.tabs.create({url: 'http://leprosorium.ru/'});
+            kango.browser.tabs.create({url: 'https://leprosorium.ru/'});
         });
         $('#tr_sklad').on('click', function(){
-            kango.browser.tabs.create({url: 'http://leprosorium.ru/my/'});
+            kango.browser.tabs.create({url: 'https://leprosorium.ru/my/'});
         });
         $('#tr_inbox').on('click', function(){
-            kango.browser.tabs.create({url: 'http://leprosorium.ru/my/inbox/'});
+            kango.browser.tabs.create({url: 'https://leprosorium.ru/my/inbox/'});
         });
 
         $('.settings').on('click', function(){

@@ -10,7 +10,7 @@
 Lepro.prototype = {
 
     _refreshTimeout: 60*1000*5, // 5 mins
-    _feedUrl: 'https://leprosorium.ru/api/lepropanel',
+    _feedUrl: 'https://leprosorium.ru/ajax/api/lepropanel',
 
     _setUnreadCount: function(data) {
 
@@ -97,7 +97,7 @@ Lepro.prototype = {
 
     refresh: function() {
         var details = {
-            url: 'https://leprosorium.ru/api/lepropanel',
+            url: 'https://leprosorium.ru/ajax/api/lepropanel',
             method: 'GET',
             async: true,
             contentType: 'json'
