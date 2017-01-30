@@ -31,7 +31,7 @@ function main() {
 
     // ^https?:\/\/(\w+\.)?leprosorium\.(ru|com)
     // ^https?:\/\/(\w+\.)?leprosorium\.(ru|com)
-    
+
     if (/^https?:\/\/(\w+\.)?leprosorium\.(ru|com)\/users\/\w+(\/)?/.test(document.URL)) //страничка с чьим-то профайлом
     {
         username = document.URL.match(/^https?:\/\/(\w+\.)?leprosorium\.(ru|com)\/users\/(\w+)(\/)?/)[3]; // Грузим имярек
@@ -50,10 +50,15 @@ function main() {
         }
     }
 
-    if ((/^https?:\/\/(\w+\.)?leprosorium\.(ru|com)\/pages\/1(\/)?$/.test(document.URL)) || (/^https?:\/\/(\w+\.)?leprosorium\.(ru|com)(\/)?$/.test(document.URL))) //страничка с главной
+    if ((/^https?:\/\/leprosorium\.(ru|com)\/pages\/1(\/)?$/.test(document.URL)) || (/^https?:\/\/leprosorium\.(ru|com)(\/)?$/.test(document.URL))) //страничка с главной
     {
         newtitle = 'Глагне';
     }
+
+	if((/^https?:\/\/(\w+)?\.leprosorium\.(ru|com)(\/)?$/.test(document.URL))) // Подлепра
+	{
+		newtitle = /^https?:\/\/(\w+)?\.leprosorium\.(ru|com)(\/)?$/.exec(document.URL)[1];
+	}
 
     if ((/^https?:\/\/(\w+\.)?leprosorium\.(ru|com)\/democracy(\/)?$/.test(document.URL))) //Белый дом
     {
